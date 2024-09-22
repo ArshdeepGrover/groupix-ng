@@ -1,0 +1,28 @@
+<form (submit)="login()" [formGroup]="loginForm">
+  <div class="input-container">
+    <label for="email">Your email</label>
+    <input
+      type="email"
+      id="email"
+      placeholder="xyz@example.com"
+      formControlName="email"
+    />
+  </div>
+  <div class="input-container">
+    <label for="password">Your password</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      placeholder="************"
+    />
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="loginForm.invalid"
+    [ngClass]="{ disable: loginForm.invalid }"
+  >
+    Login
+  </button>
+</form>
