@@ -6,9 +6,8 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from 'src/app/components/navbar/navbar.component';
 import { LoginComponent } from 'src/app/components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginService } from 'src/app/services/login.service';
-import { HttpClientModule } from '@angular/common/http';
-import { LoginProviderService } from 'src/app/services/login-provide.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ApiResponseInterceptor } from 'src/app/interceptor/api-response.interceptor';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, LoginComponent],
@@ -19,7 +18,13 @@ import { LoginProviderService } from 'src/app/services/login-provide.service';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [LoginProviderService],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiResponseInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

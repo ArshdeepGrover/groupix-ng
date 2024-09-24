@@ -21,9 +21,9 @@ export class LoginService {
     });
   }
 
-  logout(email: string): Observable<boolean> {
-    const params = new HttpParams().set('email', email);
-    return this.http.get<boolean>(`${this.apiUrl}/${ROUTES.USER.LOGOUT}`, {
+  logout(token: string): Observable<boolean> {
+    const params = new HttpParams().set('token', token);
+    return this.http.patch<boolean>(`${this.apiUrl}/${ROUTES.USER.LOGOUT}`, {
       params,
     });
   }

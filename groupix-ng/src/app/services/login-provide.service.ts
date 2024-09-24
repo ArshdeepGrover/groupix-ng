@@ -25,14 +25,14 @@ export class LoginProviderService {
   login(email: string, password: string): void {
     this.loginService.login(email, password).subscribe(
       (user) => {
-        this.localCookieService.setCookie(user.user.user_auth_token);
-        this.currentUser.next(user.user); // Update the user info
+        this.localCookieService.setCookie(user.user_auth_token);
+        this.currentUser.next(user);
         if (user) {
           this.router.navigate(['.']);
         }
       },
       (error) => {
-        this.currentUser.next(null); // Clear user info on error
+        this.currentUser.next(null);
       }
     );
   }
@@ -40,8 +40,8 @@ export class LoginProviderService {
   logout(): void {
     const user = this.currentUser.getValue();
     if (user) {
-      this.loginService.logout(user.email).subscribe(() => {
-        this.currentUser.next(null); // Clear user info on logout
+      this.loginService.logout(user.user_auth_token).subscribe(() => {
+        this.currentUser.next(null);
         this.localCookieService.removeCookie();
         this.router.navigate(['.']);
       });
@@ -54,7 +54,7 @@ export class LoginProviderService {
       this.loginService
         .getUserInfoFromAuthToken(userAuthToken)
         .subscribe((user) => {
-          this.currentUser.next(user.user);
+          this.currentUser.next(user);
         });
     }
   }
