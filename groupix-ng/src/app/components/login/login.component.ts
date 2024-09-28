@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.loginProviderService.currentUser$.subscribe((data) => {
       this.user = data;
       if (this.user) {
-        this.router.navigate(['.']);
+        this.router.navigate(['dashboard']);
       }
     });
   }

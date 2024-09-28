@@ -28,7 +28,7 @@ export class LoginProviderService {
         this.localCookieService.setCookie(user.user_auth_token);
         this.currentUser.next(user);
         if (user) {
-          this.router.navigate(['.']);
+          this.router.navigate(['dashboard']);
         }
       },
       (error) => {

@@ -9,9 +9,12 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import {ToasterService} from "../modules/toast/toaster.service";
 
 @Injectable()
 export class ApiResponseInterceptor implements HttpInterceptor {
+  constructor(private toastService: ToasterService) {
+  }
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -29,7 +32,9 @@ export class ApiResponseInterceptor implements HttpInterceptor {
         // Handle error responses and pass it to the error handling service
         // this.apiErrorHandlingService.handleError(error);
         // Optionally rethrow the error if you want the component to handle it as well
-        return throwError(error);
+        let error_message = error.error.message
+        this.toastService.showToast(error_message, 'error');
+        return throwError(error_message);
       })
     );
   }

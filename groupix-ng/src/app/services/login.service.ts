@@ -1,37 +1,36 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ROUTES } from 'src/app/apiRoutes/api'; // Adjust the path as needed
 import { environment } from 'src/environments/environment';
-import { IUser } from 'src/app/models/user.model';
+import {IUser} from "../models/user.model";
+import {BaseService} from "./base.service";
 
 @Injectable({
   providedIn: 'root',
 })
-export class LoginService {
-  private readonly apiUrl = environment.apiUrl;
-  constructor(private http: HttpClient) {}
+export class LoginService extends BaseService {
+  constructor(private http: HttpClient) {
+    super();
+  }
 
-  login(email: string, password: string): Observable<any> {
+  login(email: string, password: string): Observable<IUser> {
     const params = new HttpParams()
       .set('email', email)
       .set('password', password);
-    return this.http.get<any>(`${this.apiUrl}/${ROUTES.USER.LOGIN}`, {
+    return this.http.get<IUser>(`${this.apiUrl}/${ROUTES.USERS.LOGIN}`, {
       params,
     });
   }
 
   logout(token: string): Observable<boolean> {
     const params = new HttpParams().set('token', token);
-    return this.http.patch<boolean>(`${this.apiUrl}/${ROUTES.USER.LOGOUT}`, {
+    return this.http.patch<boolean>(`${this.apiUrl}/${ROUTES.USERS.LOGOUT}`, {
       params,
     });
   }
 
-  getUserInfoFromAuthToken(token: string): Observable<any> {
-    const params = new HttpParams().set('token', token);
-    return this.http.get<any>(`${this.apiUrl}/${ROUTES.USER.SHOW_FROM_TOKEN}`, {
-      params,
-    });
+  getUserInfoFromAuthToken(token: string): Observable<IUser> {
+    return this.http.get<IUser>(`${this.apiUrl}/${ROUTES.USERS.SHOW_FROM_TOKEN}`);
   }
 }
