@@ -1,4 +1,4 @@
-import {IGroupMembers} from "./group-members";
+import {IGroupMembers} from "./group-members.model";
 import {IUser} from "./user.model";
 
 export interface IGroup {
@@ -11,6 +11,7 @@ export interface IGroup {
   archived_at: any;
   created_at: string;
   updated_at: string;
+  members_count: number;
 }
 
 

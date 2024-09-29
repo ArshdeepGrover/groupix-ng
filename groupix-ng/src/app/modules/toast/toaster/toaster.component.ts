@@ -42,7 +42,7 @@ export class ToasterComponent implements OnInit {
 
   get toastPosition() {
     return {
-      top: `${this.index * this.toastHeight + 112}px`,  // Space each toast based on index
+      top: `${this.index * this.toastHeight + 80}px`,  // Space each toast based on index
       zIndex: 1000 - this.index // Ensure the most recent toast is always on top
     };
   }

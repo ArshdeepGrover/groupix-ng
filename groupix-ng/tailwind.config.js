@@ -4,6 +4,20 @@ module.exports = {
   content: ["./src/**/*.{html,js,ts}", "./node_modules/flowbite/**/*.js"],
   theme: {
     extend: {
+      keyframes: {
+        "slide-right-to-left": {
+          "0%": { transform: "translateX(100%)", opacity: "0" },
+          "100%": { transform: "translateX(0)", opacity: "1" },
+        },
+        "slide-left-to-right": {
+          "0%": { transform: "translateX(0)", opacity: "1" },
+          "100%": { transform: "translateX(100%)", opacity: "0" },
+        },
+      },
+      animation: {
+        "right-to-left": "slide-right-to-left 0.3s ease-in-out",
+        "left-to-right": "slide-left-to-right 0.5s ease-in-out",
+      },
       colors: {
         dark: {
           DEFAULT: "#7f7f7f", // Set the default dark color to black

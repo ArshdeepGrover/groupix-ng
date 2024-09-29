@@ -33,7 +33,9 @@ export class ApiResponseInterceptor implements HttpInterceptor {
         // this.apiErrorHandlingService.handleError(error);
         // Optionally rethrow the error if you want the component to handle it as well
         let error_message = error.error.message
-        this.toastService.showToast(error_message, 'error');
+        if(error_message !== 'User not found'){
+          this.toastService.showToast(error_message, 'error');
+        }
         return throwError(error_message);
       })
     );

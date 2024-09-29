@@ -4,10 +4,14 @@
   <div class="min-h-28">
     <app-navbar></app-navbar>
   </div>
-  <app-toaster *ngFor="let toast of toasts; let i = index"
-             [message]="toast.message"
-             [type]="toast.type"
-             [index]="i">
+  <app-toaster
+    *ngFor="let toast of toasts; let i = index"
+    [message]="toast.message"
+    [type]="toast.type"
+    [index]="i"
+  >
   </app-toaster>
-  <router-outlet></router-outlet>
+  <div class="md:max-w-screen-xl mx-auto">
+    <router-outlet></router-outlet>
+  </div>
 </div>

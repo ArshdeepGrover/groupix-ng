@@ -5,6 +5,7 @@ export const ROUTES = {
     CHECK_USERNAME: 'users/check_username',
     RESET_TOKEN: 'users/reset_token',
     SHOW_FROM_TOKEN: 'users/show_from_token',
+    SIGNUP: 'users/signup', //post
   },
 
 

@@ -4,6 +4,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LocalCookieService } from 'src/app/services/local-cookie.service';
 import { Router } from '@angular/router';
+import {ToasterService} from "../modules/toast/toaster.service";
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,8 @@ export class LoginProviderService {
   constructor(
     private loginService: LoginService,
     private localCookieService: LocalCookieService,
-    private router: Router
+    private router: Router,
+    private toastService: ToasterService
   ) {
     this.getLoginFromAuthToken();
   }
@@ -27,6 +29,7 @@ export class LoginProviderService {
       (user) => {
         this.localCookieService.setCookie(user.user_auth_token);
         this.currentUser.next(user);
+        this.toastService.showToast(`Welcome back, ${user.name}!`);
         if (user) {
           this.router.navigate(['dashboard']);
         }
@@ -37,10 +40,22 @@ export class LoginProviderService {
     );
   }
 
+  signup(dataForm: any){
+    this.loginService.signup(dataForm).subscribe((user)=>{
+      if(user){
+        this.localCookieService.setCookie(user.user_auth_token);
+        this.currentUser.next(user);
+        this.router.navigate(['dashboard']);
+        this.toastService.showToast(`Welcome, ${user.name}!`);
+      }
+    })
+  }
+
   logout(): void {
     const user = this.currentUser.getValue();
     if (user) {
       this.loginService.logout(user.user_auth_token).subscribe(() => {
+        this.toastService.showToast(`Hope to see you again, ${user.name}!`);
         this.currentUser.next(null);
         this.localCookieService.removeCookie();
         this.router.navigate(['.']);
@@ -55,6 +70,9 @@ export class LoginProviderService {
         .getUserInfoFromAuthToken(userAuthToken)
         .subscribe((user) => {
           this.currentUser.next(user);
+          this.toastService.showToast(`Welcome back, ${user.name}!`);
+        },(error)=>{
+          this.localCookieService.removeCookie();
         });
     }
   }

@@ -23,6 +23,10 @@ export class LoginService extends BaseService {
     });
   }
 
+  signup(dataForm: any): Observable<IUser>{
+    return this.http.post<IUser>(`${this.apiUrl}/${ROUTES.USERS.SIGNUP}`, {user:dataForm});
+  }
+
   logout(token: string): Observable<boolean> {
     const params = new HttpParams().set('token', token);
     return this.http.patch<boolean>(`${this.apiUrl}/${ROUTES.USERS.LOGOUT}`, {
