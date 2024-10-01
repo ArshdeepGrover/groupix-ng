@@ -21,10 +21,6 @@ export class NavbarComponent implements OnInit {
     this.isDarkMode = this.darkModeService.isDarkModeEnabled();
     this.loginProviderService.currentUser$.subscribe((data) => {
       this.user = data;
-      console.log(
-        '🚀 ~ NavbarComponent ~ this.loginProviderService.currentUser$.subscribe ~ this.user:',
-        this.user
-      );
     });
   }
 
