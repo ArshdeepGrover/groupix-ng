@@ -66,4 +66,12 @@ export class DashboardComponent implements OnInit {
       this.closeModal();
     });
   }
+
+  deleteGroup(groupId: number, index: number) {
+    this.groupService.destroy(groupId).subscribe((data) => {
+      this.toastService.showToast(`Group destroyed!`, 'success');
+      this.groups.splice(index, 1);
+      this.closeModal();
+    });
+  }
 }
