@@ -129,11 +129,18 @@
         >
           {{ group.name }}
         </th>
-        <td class="px-6 py-4">{{ group.members_count }}</td>
+        <td class="px-6 py-4">{{ group.admin_members_count }}</td>
         <td class="px-6 py-4">
           <ul>
-            <li *ngFor="let member of group.group_members">
-              {{ member.member.name }}({{ member.member.email }})
+            <li *ngFor="let admin of group.admin">
+              {{ admin.user.name }}({{ admin.user.email }}){{
+                admin.role_type_name | titlecase
+              }}
+            </li>
+            <li *ngFor="let member of group.members">
+              {{ member.user.name }}({{ member.user.email }}){{
+                member.role_type_name | titlecase
+              }}
             </li>
           </ul>
         </td>
