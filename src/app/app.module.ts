@@ -11,9 +11,10 @@ import { ApiResponseInterceptor } from 'src/app/interceptor/api-response.interce
 import { ForgotPasswordComponent } from 'src/app/components/forgot-password/forgot-password.component';
 import { SignupComponent } from 'src/app/components/signup/signup.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.component";
-import {AuthInterceptor} from "./interceptor/auth.interceptor";
-import {ToastModule} from "./modules/toast/toast.module";
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { ToastModule } from './modules/toast/toast.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {ToastModule} from "./modules/toast/toast.module";
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ToastModule
+    ToastModule,
+    MatDialogModule,
   ],
   providers: [
     {

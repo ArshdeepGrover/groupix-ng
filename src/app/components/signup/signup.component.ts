@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {LoginService} from "../../services/login.service";
-import {IUser} from "../../models/user.model";
-import {LoginProviderService} from "../../services/login-provide.service";
+import { LoginProviderService } from 'src/app/services/login-provide.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +9,10 @@ import {LoginProviderService} from "../../services/login-provide.service";
 })
 export class SignupComponent implements OnInit {
   userSignupForm: FormGroup;
-  constructor(private fb: FormBuilder, private loginProvideService: LoginProviderService) {
+  constructor(
+    private fb: FormBuilder,
+    private loginProvideService: LoginProviderService
+  ) {
     this.userSignupForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', Validators.required],
@@ -23,8 +24,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {}
 
-  signup(){
+  signup() {
     this.loginProvideService.signup(this.userSignupForm.value);
   }
 }
-
