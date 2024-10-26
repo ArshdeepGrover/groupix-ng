@@ -14,10 +14,9 @@ export class GroupsService extends BaseService {
   }
 
   create(data: any): Observable<IGroup> {
-    return this.http.post<IGroup>(
-      `${this.apiUrl}/${ROUTES.GROUPS.CREATE}`,
-      data
-    );
+    return this.http.post<IGroup>(`${this.apiUrl}/${ROUTES.GROUPS.CREATE}`, {
+      group: data,
+    });
   }
 
   index(): Observable<IGroup[]> {

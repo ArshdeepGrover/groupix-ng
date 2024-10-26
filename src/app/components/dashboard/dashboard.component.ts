@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { GroupsService } from '../../services/groups.service';
-import { IGroup } from '../../models/group.model';
-import { ToasterService } from '../../modules/toast/toaster.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Modal } from 'flowbite';
-
+import { MatDialog } from '@angular/material/dialog';
+import { DeletePopupDialogComponent } from 'src/app/modules/shared-components/delete-popup-dialog/delete-popup-dialog.component';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { svgIcons } from 'src/app/store/svg.store';
+import { ToasterService } from 'src/app/modules/toast/toaster.service';
+import { GroupsService } from 'src/app/services/groups.service';
+import { IGroup } from 'src/app/models/group.model';
+import { buttonsStore } from 'src/app/store/buttons.store';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -13,16 +17,27 @@ import { Modal } from 'flowbite';
 export class DashboardComponent implements OnInit {
   GroupForm: FormGroup;
   groups!: IGroup[];
-  private modalInstance: any;
+  modalInstance: any;
+  plusInCircle!: SafeHtml;
+  closeButton!: SafeHtml;
+  readonly dialog = inject(MatDialog);
 
   constructor(
     private fb: FormBuilder,
     private groupService: GroupsService,
-    private toastService: ToasterService
+    private toastService: ToasterService,
+    private sanitizer: DomSanitizer
   ) {
     this.GroupForm = this.fb.group({
       name: ['', Validators.required],
+      members: this.fb.array([]),
     });
+    this.plusInCircle = this.sanitizer.bypassSecurityTrustHtml(
+      svgIcons.plus_in_circle
+    );
+    this.closeButton = this.sanitizer.bypassSecurityTrustHtml(
+      buttonsStore.close_button
+    );
   }
 
   ngOnInit() {
@@ -39,18 +54,42 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  // Getter for emails FormArray
+  get members(): FormArray {
+    return this.GroupForm.get('members') as FormArray;
+  }
+
+  // Create a new email FormControl
+  createEmail(): FormGroup {
+    return this.fb.group({
+      email: ['', [Validators.required, Validators.email]], // Email field with validation
+    });
+  }
+
+  // Add a new email to the emails FormArray
+  addEmail(): void {
+    this.members.push(this.createEmail());
+  }
+
+  // Remove an email from the emails FormArray
+  removeEmail(index: number): void {
+    this.members.removeAt(index);
+  }
+
   // Open the modal using the stored instance
-  openModal() {
-    if (this.modalInstance) {
-      this.modalInstance.show();
+  openModal(modelName: any) {
+    if (modelName) {
+      modelName.show();
     }
+    this.addEmail();
   }
 
   // Close the modal using the stored instance
-  closeModal() {
-    if (this.modalInstance) {
-      this.modalInstance.hide();
+  closeModal(modelName: any) {
+    if (modelName) {
+      modelName.hide();
     }
+    this.removeEmail(0);
   }
 
   getGroups() {
@@ -63,15 +102,20 @@ export class DashboardComponent implements OnInit {
     this.groupService.create(this.GroupForm.value).subscribe((data: IGroup) => {
       this.toastService.showToast(`Group: ${data.name} Created!`, 'success');
       this.groups.unshift(data);
-      this.closeModal();
+      this.closeModal(this.modalInstance);
     });
   }
 
   deleteGroup(groupId: number, index: number) {
     this.groupService.destroy(groupId).subscribe((data) => {
-      this.toastService.showToast(`Group destroyed!`, 'success');
-      this.groups.splice(index, 1);
-      this.closeModal();
+      if (data) {
+        this.toastService.showToast(`Group destroyed!`, 'success');
+        this.groups.splice(index, 1);
+      }
     });
+  }
+
+  openDialog(): void {
+    this.dialog.open(DeletePopupDialogComponent);
   }
 }

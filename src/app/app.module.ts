@@ -15,6 +15,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { ToastModule } from './modules/toast/toast.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SharedComponentsModule } from 'src/app/modules/shared-components/shared-components.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     ToastModule,
     MatDialogModule,
+    SharedComponentsModule
   ],
   providers: [
     {
