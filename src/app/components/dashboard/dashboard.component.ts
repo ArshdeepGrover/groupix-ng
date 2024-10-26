@@ -9,6 +9,8 @@ import { ToasterService } from 'src/app/modules/toast/toaster.service';
 import { GroupsService } from 'src/app/services/groups.service';
 import { IGroup } from 'src/app/models/group.model';
 import { buttonsStore } from 'src/app/store/buttons.store';
+import { IPopup } from 'src/app/models/popup.model';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -115,7 +117,20 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  openDialog(): void {
-    this.dialog.open(DeletePopupDialogComponent);
+  openDialog(group: IGroup, index: number): void {
+    const dialogRef = this.dialog.open(DeletePopupDialogComponent, {
+      data: {
+        title: 'Delete Group',
+        message: `Are you sure you want to delete this ${group.name}?`,
+        id: group.id,
+        index: index,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: IPopup) => {
+      if (result.confirm) {
+        this.deleteGroup(result.data.id, result.data.index);
+      }
+    });
   }
 }
