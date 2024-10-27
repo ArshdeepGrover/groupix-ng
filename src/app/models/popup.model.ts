@@ -1,4 +1,4 @@
-import { EDbModel } from "src/app/enums/dbModel.enum";
+import { EDbModel } from 'src/app/enums/dbModel.enum';
 
 export interface IPopup {
   confirm: boolean;
@@ -11,4 +11,6 @@ export interface IData {
   id: number;
   parentType: EDbModel;
   index: number;
+  form_value: any;
+  primary_button_text: string;
 }

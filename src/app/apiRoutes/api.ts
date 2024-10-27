@@ -13,6 +13,7 @@ export const ROUTES = {
     INDEX: 'groups', // get
     SHOW: 'groups/show', // get
     CREATE: 'groups', // post
-    DESTROY: 'groups' // delete
+    DESTROY: 'groups', // delete
+    UPDATE: 'groups' // put
   }
 };

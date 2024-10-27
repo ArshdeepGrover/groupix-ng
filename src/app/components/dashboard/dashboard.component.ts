@@ -10,6 +10,7 @@ import { GroupsService } from 'src/app/services/groups.service';
 import { IGroup } from 'src/app/models/group.model';
 import { buttonsStore } from 'src/app/store/buttons.store';
 import { IPopup } from 'src/app/models/popup.model';
+import { GroupFormComponent } from 'src/app/components/group-form/group-form.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +24,8 @@ export class DashboardComponent implements OnInit {
   plusInCircle!: SafeHtml;
   closeButton!: SafeHtml;
   readonly dialog = inject(MatDialog);
+  isLoading = true;
+  isCreatingOrUpdatingGroup = false;
 
   constructor(
     private fb: FormBuilder,
@@ -44,67 +47,63 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getGroups();
-    const modalElement = document.getElementById('crud-modal');
-    if (modalElement) {
-      const modalOptions = {
-        backdrop: false,
-        backdropClasses: 'bg-gray-900 bg-opacity-50 fixed inset-0 z-40',
-        closable: true,
-      };
-      // @ts-ignore
-      this.modalInstance = new Modal(modalElement, modalOptions);
-    }
   }
 
-  // Getter for emails FormArray
-  get members(): FormArray {
-    return this.GroupForm.get('members') as FormArray;
-  }
-
-  // Create a new email FormControl
-  createEmail(): FormGroup {
-    return this.fb.group({
-      email: ['', [Validators.required, Validators.email]], // Email field with validation
+  openGroupForm() {
+    const dialogRef = this.dialog.open(GroupFormComponent, {
+      data: {
+        title: 'Create Group',
+        primary_button_text: 'Create',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result: IPopup) => {
+      if (result.confirm) {
+        this.isCreatingOrUpdatingGroup = true;
+        this.createGroup(result.data.form_value);
+      }
     });
   }
 
-  // Add a new email to the emails FormArray
-  addEmail(): void {
-    this.members.push(this.createEmail());
-  }
-
-  // Remove an email from the emails FormArray
-  removeEmail(index: number): void {
-    this.members.removeAt(index);
-  }
-
-  // Open the modal using the stored instance
-  openModal(modelName: any) {
-    if (modelName) {
-      modelName.show();
-    }
-    this.addEmail();
-  }
-
-  // Close the modal using the stored instance
-  closeModal(modelName: any) {
-    if (modelName) {
-      modelName.hide();
-    }
-    this.removeEmail(0);
+  editGroupForm(groupDetails: IGroup) {
+    const dialogRef = this.dialog.open(GroupFormComponent, {
+      data: {
+        title: 'Edit Group',
+        form_value: groupDetails,
+        primary_button_text: 'Update',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result: IPopup) => {
+      if (result.confirm) {
+        this.isCreatingOrUpdatingGroup = true;
+        this.updateGroup(result.data.id, result.data.form_value);
+      }
+    });
   }
 
   getGroups() {
+    this.isLoading = true;
     this.groupService.index().subscribe((data) => {
       this.groups = data;
+      this.isLoading = false;
     });
   }
 
-  createGroup() {
-    this.groupService.create(this.GroupForm.value).subscribe((data: IGroup) => {
+  createGroup(formData: any) {
+    this.groupService.create(formData).subscribe((data: IGroup) => {
       this.toastService.showToast(`Group: ${data.name} Created!`, 'success');
       this.groups.unshift(data);
-      this.closeModal(this.modalInstance);
+      this.isCreatingOrUpdatingGroup = false;
+    });
+  }
+
+  updateGroup(groupId: number, formData: any) {
+    this.groupService.update(groupId, formData).subscribe((data: IGroup) => {
+      this.toastService.showToast(`Group: ${data.name} Updates!`, 'success');
+      const index = this.groups.findIndex(
+        (group: IGroup) => group.id === groupId
+      );
+      this.groups[index] = data;
+      this.isCreatingOrUpdatingGroup = false;
     });
   }
 
@@ -114,10 +113,11 @@ export class DashboardComponent implements OnInit {
         this.toastService.showToast(`Group destroyed!`, 'success');
         this.groups.splice(index, 1);
       }
+      this.isCreatingOrUpdatingGroup = false;
     });
   }
 
-  openDialog(group: IGroup, index: number): void {
+  openDeleteDialog(group: IGroup, index: number): void {
     const dialogRef = this.dialog.open(DeletePopupDialogComponent, {
       data: {
         title: 'Delete Group',
@@ -129,6 +129,7 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: IPopup) => {
       if (result.confirm) {
+        this.isCreatingOrUpdatingGroup = true;
         this.deleteGroup(result.data.id, result.data.index);
       }
     });

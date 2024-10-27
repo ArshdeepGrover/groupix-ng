@@ -117,15 +117,15 @@
           </li>
           <li>
             <a
-              href="#"
+             [routerLink]="'profile'"
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-              >Settings</a
+              >Profile</a
             >
           </li>
           <li>
             <a
               (click)="logout()"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white cursor-pointer"
               >Sign out</a
             >
           </li>
@@ -156,7 +156,7 @@
         </svg>
       </button>
     </div>
-    <div
+    <!-- <div
       class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
       id="navbar-user"
     >
@@ -200,6 +200,6 @@
           >
         </li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </nav>

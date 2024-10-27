@@ -32,4 +32,15 @@ export class GroupsService extends BaseService {
       }
     );
   }
+
+  update(groupId: number, data: any): Observable<IGroup> {
+    const params = new HttpParams().set('group_id', groupId);
+    return this.http.put<IGroup>(
+      `${this.apiUrl}/${ROUTES.GROUPS.UPDATE}`,
+      {
+        group: data,
+      },
+      { params }
+    );
+  }
 }
