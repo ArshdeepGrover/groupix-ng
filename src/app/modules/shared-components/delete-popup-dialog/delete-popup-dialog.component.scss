@@ -1,0 +1,12 @@
+section {
+  @apply bg-white dark:bg-gray-800 dark:text-white rounded-lg;
+  .heading {
+    @apply px-6 py-4 flex justify-between items-start border-solid border-b-[1px];
+  }
+  .message {
+    @apply px-6 min-h-14 flex items-center;
+  }
+  .action-button {
+    @apply px-6 py-4 flex justify-between items-center border-solid border-t-[1px];
+  }
+}

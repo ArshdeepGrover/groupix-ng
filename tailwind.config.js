@@ -44,6 +44,8 @@ module.exports = {
           800: "#2e2f35",
           900: "#17171a",
         },
+        darkBorderColor: "#585859",
+        lightBorderColor: "#dadada",
       },
     },
   },

@@ -1,0 +1,13 @@
+<section>
+  <div class="heading border-color">
+    <div class="title">{{ data.title }}</div>
+    <div (click)="cancel()" [innerHTML]="closeButton"></div>
+  </div>
+  <div class="message">
+    <span>{{ data.message }}</span>
+  </div>
+  <div class="action-button border-color">
+    <button class="primary-btn" (click)="confirm()">Delete</button>
+    <button class="cancel" (click)="cancel()">Cancel</button>
+  </div>
+</section>

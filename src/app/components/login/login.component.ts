@@ -12,6 +12,7 @@ import { LoginProviderService } from 'src/app/services/login-provide.service';
 export class LoginComponent implements OnInit {
   loginForm: any;
   user: IUser | null | undefined;
+  isLoading: boolean = false;
   constructor(
     private loginProviderService: LoginProviderService,
     private fb: FormBuilder,
@@ -24,10 +25,14 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.loginProviderService.currentUser$.subscribe((data) => {
       this.user = data;
-      if (this.user) {
-        this.router.navigate(['dashboard']);
+      if (data) {
+        setTimeout(() => {
+          this.isLoading = false;
+          this.router.navigate(['dashboard']);
+        }, 1000);
       }
     });
   }

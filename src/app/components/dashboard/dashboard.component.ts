@@ -1,9 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { GroupsService } from '../../services/groups.service';
-import { IGroup } from '../../models/group.model';
-import { ToasterService } from '../../modules/toast/toaster.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Modal } from 'flowbite';
+import { MatDialog } from '@angular/material/dialog';
+import { DeletePopupDialogComponent } from 'src/app/modules/shared-components/delete-popup-dialog/delete-popup-dialog.component';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { svgIcons } from 'src/app/store/svg.store';
+import { ToasterService } from 'src/app/modules/toast/toaster.service';
+import { GroupsService } from 'src/app/services/groups.service';
+import { IGroup } from 'src/app/models/group.model';
+import { buttonsStore } from 'src/app/store/buttons.store';
+import { IPopup } from 'src/app/models/popup.model';
+import { GroupFormComponent } from 'src/app/components/group-form/group-form.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,57 +20,118 @@ import { Modal } from 'flowbite';
 export class DashboardComponent implements OnInit {
   GroupForm: FormGroup;
   groups!: IGroup[];
-  private modalInstance: any;
+  modalInstance: any;
+  plusInCircle!: SafeHtml;
+  closeButton!: SafeHtml;
+  readonly dialog = inject(MatDialog);
+  isLoading = true;
+  isCreatingOrUpdatingGroup = false;
 
   constructor(
     private fb: FormBuilder,
     private groupService: GroupsService,
-    private toastService: ToasterService
+    private toastService: ToasterService,
+    private sanitizer: DomSanitizer
   ) {
     this.GroupForm = this.fb.group({
       name: ['', Validators.required],
+      members: this.fb.array([]),
     });
+    this.plusInCircle = this.sanitizer.bypassSecurityTrustHtml(
+      svgIcons.plus_in_circle
+    );
+    this.closeButton = this.sanitizer.bypassSecurityTrustHtml(
+      buttonsStore.close_button
+    );
   }
 
   ngOnInit() {
     this.getGroups();
-    const modalElement = document.getElementById('crud-modal');
-    if (modalElement) {
-      const modalOptions = {
-        backdrop: false,
-        backdropClasses: 'bg-gray-900 bg-opacity-50 fixed inset-0 z-40',
-        closable: true,
-      };
-      // @ts-ignore
-      this.modalInstance = new Modal(modalElement, modalOptions);
-    }
   }
 
-  // Open the modal using the stored instance
-  openModal() {
-    if (this.modalInstance) {
-      this.modalInstance.show();
-    }
-  }
-
-  // Close the modal using the stored instance
-  closeModal() {
-    if (this.modalInstance) {
-      this.modalInstance.hide();
-    }
-  }
-
-  getGroups() {
-    this.groupService.index().subscribe((data) => {
-      this.groups = data;
+  openGroupForm() {
+    const dialogRef = this.dialog.open(GroupFormComponent, {
+      data: {
+        title: 'Create Group',
+        primary_button_text: 'Create',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result: IPopup) => {
+      if (result.confirm) {
+        this.isCreatingOrUpdatingGroup = true;
+        this.createGroup(result.data.form_value);
+      }
     });
   }
 
-  createGroup() {
-    this.groupService.create(this.GroupForm.value).subscribe((data: IGroup) => {
+  editGroupForm(groupDetails: IGroup) {
+    const dialogRef = this.dialog.open(GroupFormComponent, {
+      data: {
+        title: 'Edit Group',
+        form_value: groupDetails,
+        primary_button_text: 'Update',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result: IPopup) => {
+      if (result.confirm) {
+        this.isCreatingOrUpdatingGroup = true;
+        this.updateGroup(result.data.id, result.data.form_value);
+      }
+    });
+  }
+
+  getGroups() {
+    this.isLoading = true;
+    this.groupService.index().subscribe((data) => {
+      this.groups = data;
+      this.isLoading = false;
+    });
+  }
+
+  createGroup(formData: any) {
+    this.groupService.create(formData).subscribe((data: IGroup) => {
       this.toastService.showToast(`Group: ${data.name} Created!`, 'success');
       this.groups.unshift(data);
-      this.closeModal();
+      this.isCreatingOrUpdatingGroup = false;
+    });
+  }
+
+  updateGroup(groupId: number, formData: any) {
+    this.groupService.update(groupId, formData).subscribe((data: IGroup) => {
+      this.toastService.showToast(`Group: ${data.name} Updates!`, 'success');
+      const index = this.groups.findIndex(
+        (group: IGroup) => group.id === groupId
+      );
+      this.groups[index] = data;
+      this.isCreatingOrUpdatingGroup = false;
+    });
+  }
+
+  deleteGroup(groupId: number, index: number) {
+    this.groupService.destroy(groupId).subscribe((data) => {
+      if (data) {
+        this.toastService.showToast(`Group destroyed!`, 'success');
+        this.groups.splice(index, 1);
+      }
+      this.isCreatingOrUpdatingGroup = false;
+    });
+  }
+
+  openDeleteDialog(group: IGroup, index: number): void {
+    const dialogRef = this.dialog.open(DeletePopupDialogComponent, {
+      data: {
+        title: 'Delete Group',
+        message: `Are you sure you want to delete this ${group.name}?`,
+        id: group.id,
+        index: index,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: IPopup) => {
+      if (result.confirm) {
+        this.isCreatingOrUpdatingGroup = true;
+        this.deleteGroup(result.data.id, result.data.index);
+      }
     });
   }
 }

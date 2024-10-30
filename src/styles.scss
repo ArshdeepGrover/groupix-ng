@@ -1,7 +1,6 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -13,5 +12,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.primary-btn {
+  @apply text-primary-700 hover:text-white border border-primary-700 hover:bg-primary-800 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-primary-500 dark:text-primary-500 dark:hover:text-white dark:hover:bg-primary-500 dark:focus:ring-primary-800;
+}
+
+.mat-mdc-dialog-surface {
+  @apply bg-transparent #{!important};
+}
+
+.border-color {
+  @apply border-lightBorderColor dark:border-darkBorderColor;
+}
+
+
+.svgColor {
+  @apply fill-[#1c2e45] dark:fill-white;
+}
