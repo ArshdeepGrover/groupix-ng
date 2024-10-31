@@ -6,16 +6,16 @@ import { SignupComponent } from 'src/app/components/signup/signup.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ProfileComponent } from 'src/app/components/profile/profile.component';
+import { HomepageComponent } from 'src/app/components/homepage/homepage.component';
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent,
+    path: '',
+    component: HomepageComponent,
   },
   {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
+    path: 'login',
+    component: LoginComponent,
   },
   {
     path: 'forgot',
