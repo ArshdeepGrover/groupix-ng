@@ -1,3 +1,4 @@
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,10 +14,12 @@ export class LoginComponent implements OnInit {
   loginForm: any;
   user: IUser | null | undefined;
   isLoading: boolean = false;
+  googleUser!: SocialUser;
   constructor(
     private loginProviderService: LoginProviderService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private socialAuthService: SocialAuthService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -25,6 +28,22 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.socialAuthService.authState.subscribe(
+      (user) => {
+        console.log(
+          '🚀 ~ LoginComponent ~ this.socialAuthService.authState.subscribe ~ user:',
+          user
+        );
+        this.googleUser = user;
+      },
+      (error) => {
+        console.log(
+          '🚀 ~ LoginComponent ~ this.socialAuthService.authState.subscribe ~ error:',
+          error
+        );
+      }
+    );
+
     this.isLoading = true;
     this.loginProviderService.currentUser$.subscribe((data) => {
       this.user = data;
