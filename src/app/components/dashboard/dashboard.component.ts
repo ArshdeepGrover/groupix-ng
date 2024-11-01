@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result: IPopup) => {
-      if (result.confirm) {
+      if (result && result.confirm) {
         this.isCreatingOrUpdatingGroup = true;
         this.createGroup(result.data.form_value);
       }
@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result: IPopup) => {
-      if (result.confirm) {
+      if (result && result.confirm) {
         this.isCreatingOrUpdatingGroup = true;
         this.updateGroup(result.data.id, result.data.form_value);
       }
@@ -128,7 +128,7 @@ export class DashboardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: IPopup) => {
-      if (result.confirm) {
+      if (result && result.confirm) {
         this.isCreatingOrUpdatingGroup = true;
         this.deleteGroup(result.data.id, result.data.index);
       }

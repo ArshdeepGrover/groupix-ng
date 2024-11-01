@@ -1,37 +1,68 @@
 <section>
   <div class="heading border-color">
-    <div class="title">{{ data.title }}</div>
+    <h2 class="title">{{ data.title }}</h2>
     <div (click)="close()" [innerHTML]="closeButton"></div>
   </div>
-  <div class="form">
-    <form method="post" [formGroup]="GroupForm">
-      <div class="mb-6">
-        <label
-          for="default-input"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Group Name</label
-        >
-        <input type="text" formControlName="name" placeholder="Name" />
-      </div>
-
-      <div formArrayName="members">
-        <div
-          *ngFor="let member of members.controls; let i = index"
-          [formGroupName]="i"
-        >
-          <label for="email-{{ i }}">Email {{ i + 1 }}</label>
-          <input
-            id="email-{{ i }}"
-            formControlName="email"
-            placeholder="Enter email"
-          />
-          <button type="button" (click)="removeEmail(i)">Remove</button>
+  <div class="container-body">
+    <div class="form">
+      <form method="post" [formGroup]="GroupForm">
+        <div class="mb-4">
+          <label
+            for="default-input"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Group Name</label
+          >
+          <input type="text" formControlName="name" placeholder="Name" />
         </div>
-      </div>
-
-      <!-- Button to add a new email -->
-      <button type="button" (click)="addEmail()">Add Email</button>
-    </form>
+        <div formArrayName="members">
+          <small class="text-blue-500">
+            This will be admin of the group which can't be change or remove!
+          </small>
+          <div *ngIf="data.form_value">
+            <div *ngFor="let admin of data.form_value.admin">
+              <input
+                type="text"
+                [value]="admin.user.email"
+                readonly
+                class="admin-email"
+                disabled
+              />
+            </div>
+          </div>
+          <div *ngIf="!data.form_value">
+            <input
+              type="text"
+              [value]="currentUser?.email"
+              readonly
+              class="admin-email"
+              disabled
+            />
+          </div>
+          <p>Enter Members emails to add in group</p>
+          <div
+            *ngFor="let member of members.controls; let i = index"
+            [formGroupName]="i"
+            class="members-email"
+          >
+            <!-- <label for="email-{{ i }}">Email {{ i + 1 }}</label> -->
+            <input
+              id="email-{{ i }}"
+              formControlName="email"
+              placeholder="Enter email of member"
+              class="w-full"
+            />
+            <button type="button" (click)="removeEmail(i)">
+              <div class="text-red-500" [innerHTML]="remove"></div>
+            </button>
+          </div>
+        </div>
+        <!-- Button to add a new email -->
+        <button type="button" (click)="addEmail()" class="add-email-button">
+          <div [innerHTML]="plusIcon"></div>
+          Add Email
+        </button>
+      </form>
+    </div>
   </div>
   <div class="action-button border-color">
     <button

@@ -3,7 +3,10 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { IData } from 'src/app/models/popup.model';
+import { IUser } from 'src/app/models/user.model';
+import { LoginProviderService } from 'src/app/services/login-provide.service';
 import { buttonsStore } from 'src/app/store/buttons.store';
+import { svgIcons } from 'src/app/store/svg.store';
 
 @Component({
   selector: 'app-group-form',
@@ -13,12 +16,16 @@ import { buttonsStore } from 'src/app/store/buttons.store';
 export class GroupFormComponent implements OnInit {
   data: IData = inject(MAT_DIALOG_DATA);
   closeButton!: SafeHtml;
+  remove!: SafeHtml;
+  plusIcon!: SafeHtml;
   GroupForm: FormGroup;
+  currentUser: IUser | null | undefined;
 
   constructor(
     private sanitizer: DomSanitizer,
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<GroupFormComponent>
+    private dialogRef: MatDialogRef<GroupFormComponent>,
+    private loginProviderService: LoginProviderService
   ) {
     this.GroupForm = this.fb.group({
       name: ['', Validators.required],
@@ -27,6 +34,8 @@ export class GroupFormComponent implements OnInit {
     this.closeButton = this.sanitizer.bypassSecurityTrustHtml(
       buttonsStore.close_button
     );
+    this.remove = this.sanitizer.bypassSecurityTrustHtml(svgIcons.user_remove);
+    this.plusIcon = this.sanitizer.bypassSecurityTrustHtml(svgIcons.plus);
   }
 
   // Getter for emails FormArray
@@ -35,6 +44,9 @@ export class GroupFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loginProviderService.currentUser$.subscribe((data) => {
+      this.currentUser = data;
+    });
     if (this.data.form_value) {
       this.GroupForm.patchValue({
         name: this.data.form_value.name,
