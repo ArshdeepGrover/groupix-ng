@@ -59,7 +59,7 @@ export class GroupFormComponent implements OnInit {
         );
       });
     } else {
-      this.addEmail();
+      // this.addEmail();
     }
   }
 

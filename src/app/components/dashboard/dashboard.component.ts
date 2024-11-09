@@ -89,11 +89,21 @@ export class DashboardComponent implements OnInit {
   }
 
   createGroup(formData: any) {
-    this.groupService.create(formData).subscribe((data: IGroup) => {
-      this.toastService.showToast(`Group: ${data.name} Created!`, 'success');
-      this.groups.unshift(data);
-      this.isCreatingOrUpdatingGroup = false;
-    });
+    this.groupService.create(formData).subscribe(
+      (data: IGroup) => {
+        if (data) {
+          this.toastService.showToast(
+            `Group: ${data.name} Created!`,
+            'success'
+          );
+          this.groups.unshift(data);
+          this.isCreatingOrUpdatingGroup = false;
+        }
+      },
+      () => {
+        this.isCreatingOrUpdatingGroup = false;
+      }
+    );
   }
 
   updateGroup(groupId: number, formData: any) {
