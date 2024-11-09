@@ -1,0 +1,9 @@
+.main-section {
+  @apply min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+  .navbar {
+    @apply min-h-20 sticky top-0 z-50;
+  }
+  .router-outlet {
+    @apply md:max-w-screen-xl mx-auto;
+  }
+}
