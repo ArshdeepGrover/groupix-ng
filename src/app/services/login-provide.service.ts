@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { LocalCookieService } from 'src/app/services/local-cookie.service';
 import { Router } from '@angular/router';
 import { ToasterService } from 'src/app/modules/toast/toaster.service';
+import { SocialUser } from '@abacritt/angularx-social-login';
 
 @Injectable({
   providedIn: 'root',
@@ -78,5 +79,16 @@ export class LoginProviderService {
         }
       );
     }
+  }
+
+  loginWithGoogle(googleUser: SocialUser) {
+    this.loginService.userAuthGoogle(googleUser).subscribe((user) => {
+      if (user) {
+        this.localCookieService.setCookie(user.user_auth_token);
+        this.currentUser.next(user);
+        this.router.navigate(['dashboard']);
+        this.toastService.showToast(`Welcome, ${user.name}!`);
+      }
+    });
   }
 }
