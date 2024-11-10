@@ -14,7 +14,7 @@
             ? './assets/images/logo_dark_mode.png'
             : './assets/images/logo_light_mode.png'
         "
-        class="h-12"
+        class="h-10"
         alt="Groupix Logo"
       />
     </a>
@@ -80,7 +80,7 @@
         /> -->
         <div
           *ngIf="user"
-          class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-black text-xl font-bold"
+          class="w-8 h-8 rounded-full bg-primary-300 flex items-center justify-center text-black text-xl font-bold"
         >
           <span *ngIf="!user.profileImage">{{
             user.name.charAt(0) | titlecase

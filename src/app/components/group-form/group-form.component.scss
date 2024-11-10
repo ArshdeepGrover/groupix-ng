@@ -1,15 +1,34 @@
 section {
-  @apply bg-white dark:bg-gray-800 dark:text-white rounded-lg md:w-[40dvw];
+  @apply bg-white dark:bg-gray-800 dark:text-white rounded-lg w-full md:w-[40dvw] md:max-h-[90dvh] overflow-hidden flex flex-col;
   .heading {
-    @apply px-6 py-4 flex justify-between items-center border-solid border-b-[1px];
+    @apply text-lg px-6 py-4 flex justify-between items-center border-solid border-b-[1px] sticky top-0;
+  }
+  .container-body {
+    @apply flex-1 overflow-y-auto;
   }
   .form {
     @apply px-6 py-4;
     input {
       @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
     }
+    .admin-email {
+      @apply ring-blue-500 ring-1 text-blue-500 mb-4;
+    }
+    .members-email {
+      @apply flex gap-3 items-center my-3;
+    }
+    .add-email-button {
+      @apply flex gap-1 text-primary-500 px-2 py-1 hover:text-primary-600;
+      > div {
+        @apply text-lg;
+      }
+    }
   }
+
   .action-button {
-    @apply px-6 py-4 flex justify-between items-center border-solid border-t-[1px];
+    @apply bg-white dark:bg-gray-800 px-6 py-4 flex justify-between items-center border-solid border-t-[1px] sticky bottom-0;
+    .disable {
+      @apply bg-gray-200 #{!important};
+    }
   }
 }
