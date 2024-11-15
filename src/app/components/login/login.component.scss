@@ -6,6 +6,7 @@
       @apply text-center text-3xl text-primary-500;
     }
     .login {
+      @apply flex justify-center my-2;
     }
     .divider-line {
       @apply my-4 flex items-center gap-2;

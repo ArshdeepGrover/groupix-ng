@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ROUTES } from 'src/app/apiRoutes/api'; // Adjust the path as needed
 import { environment } from 'src/environments/environment';
-import {IUser} from "../models/user.model";
-import {BaseService} from "./base.service";
+import { IUser } from '../models/user.model';
+import { BaseService } from './base.service';
+import { SocialUser } from '@abacritt/angularx-social-login';
 
 @Injectable({
   providedIn: 'root',
@@ -23,8 +24,10 @@ export class LoginService extends BaseService {
     });
   }
 
-  signup(dataForm: any): Observable<IUser>{
-    return this.http.post<IUser>(`${this.apiUrl}/${ROUTES.USERS.SIGNUP}`, {user:dataForm});
+  signup(dataForm: any): Observable<IUser> {
+    return this.http.post<IUser>(`${this.apiUrl}/${ROUTES.USERS.SIGNUP}`, {
+      user: dataForm,
+    });
   }
 
   logout(token: string): Observable<boolean> {
@@ -35,6 +38,19 @@ export class LoginService extends BaseService {
   }
 
   getUserInfoFromAuthToken(token: string): Observable<IUser> {
-    return this.http.get<IUser>(`${this.apiUrl}/${ROUTES.USERS.SHOW_FROM_TOKEN}`);
+    return this.http.get<IUser>(
+      `${this.apiUrl}/${ROUTES.USERS.SHOW_FROM_TOKEN}`
+    );
+  }
+
+  userAuthGoogle(userData: SocialUser): Observable<IUser> {
+    return this.http.post<IUser>(`${this.apiUrl}/${ROUTES.USERS.GOOGLE_AUTH}`, {
+      user: {
+        email: userData.email,
+        provider: userData.provider,
+        name: userData.firstName,
+        log: JSON.stringify(userData),
+      },
+    });
   }
 }

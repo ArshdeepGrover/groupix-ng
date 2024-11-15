@@ -6,10 +6,14 @@
   >
     <a
       class="flex items-center space-x-3 rtl:space-x-reverse"
-      [routerLink]="['.']"
+      [routerLink]="['']"
     >
       <img
-        [src]="isDarkMode ? './assets/images/logo_dark_mode.png' : './assets/images/logo_light_mode.png'"
+        [src]="
+          isDarkMode
+            ? './assets/images/logo_dark_mode.png'
+            : './assets/images/logo_light_mode.png'
+        "
         class="h-10"
         alt="Groupix Logo"
       />
@@ -113,7 +117,7 @@
           </li>
           <li>
             <a
-             [routerLink]="'profile'"
+              [routerLink]="'profile'"
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >Profile</a
             >
