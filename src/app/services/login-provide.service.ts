@@ -4,7 +4,8 @@ import { LoginService } from 'src/app/services/login.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LocalCookieService } from 'src/app/services/local-cookie.service';
 import { Router } from '@angular/router';
-import {ToasterService} from "../modules/toast/toaster.service";
+import { ToasterService } from 'src/app/modules/toast/toaster.service';
+import { SocialUser } from '@abacritt/angularx-social-login';
 
 @Injectable({
   providedIn: 'root',
@@ -24,10 +25,12 @@ export class LoginProviderService {
     this.getLoginFromAuthToken();
   }
 
-  login(email: string, password: string): void {
+  login(email: string, password: string, remember: boolean = true): void {
     this.loginService.login(email, password).subscribe(
       (user) => {
-        this.localCookieService.setCookie(user.user_auth_token);
+        if (remember) {
+          this.localCookieService.setCookie(user.user_auth_token);
+        }
         this.currentUser.next(user);
         this.toastService.showToast(`Welcome back, ${user.name}!`);
         if (user) {
@@ -40,15 +43,15 @@ export class LoginProviderService {
     );
   }
 
-  signup(dataForm: any){
-    this.loginService.signup(dataForm).subscribe((user)=>{
-      if(user){
+  signup(dataForm: any) {
+    this.loginService.signup(dataForm).subscribe((user) => {
+      if (user) {
         this.localCookieService.setCookie(user.user_auth_token);
         this.currentUser.next(user);
         this.router.navigate(['dashboard']);
         this.toastService.showToast(`Welcome, ${user.name}!`);
       }
-    })
+    });
   }
 
   logout(): void {
@@ -66,14 +69,26 @@ export class LoginProviderService {
   getLoginFromAuthToken() {
     const userAuthToken = this.localCookieService.findUserAuthCookie();
     if (userAuthToken) {
-      this.loginService
-        .getUserInfoFromAuthToken(userAuthToken)
-        .subscribe((user) => {
+      this.loginService.getUserInfoFromAuthToken(userAuthToken).subscribe(
+        (user) => {
           this.currentUser.next(user);
           this.toastService.showToast(`Welcome back, ${user.name}!`);
-        },(error)=>{
+        },
+        (error) => {
           this.localCookieService.removeCookie();
-        });
+        }
+      );
     }
+  }
+
+  loginWithGoogle(googleUser: SocialUser) {
+    this.loginService.userAuthGoogle(googleUser).subscribe((user) => {
+      if (user) {
+        this.localCookieService.setCookie(user.user_auth_token);
+        this.currentUser.next(user);
+        this.router.navigate(['dashboard']);
+        this.toastService.showToast(`Welcome, ${user.name}!`);
+      }
+    });
   }
 }

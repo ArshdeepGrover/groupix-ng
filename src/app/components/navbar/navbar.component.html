@@ -6,11 +6,15 @@
   >
     <a
       class="flex items-center space-x-3 rtl:space-x-reverse"
-      [routerLink]="['.']"
+      [routerLink]="['']"
     >
       <img
-        [src]="isDarkMode ? './assets/images/logo_dark_mode.png' : './assets/images/logo_light_mode.png'"
-        class="h-12"
+        [src]="
+          isDarkMode
+            ? './assets/images/logo_dark_mode.png'
+            : './assets/images/logo_light_mode.png'
+        "
+        class="h-10"
         alt="Groupix Logo"
       />
     </a>
@@ -76,7 +80,7 @@
         /> -->
         <div
           *ngIf="user"
-          class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-black text-xl font-bold"
+          class="w-8 h-8 rounded-full bg-primary-300 flex items-center justify-center text-black text-xl font-bold"
         >
           <span *ngIf="!user.profileImage">{{
             user.name.charAt(0) | titlecase
@@ -113,7 +117,7 @@
           </li>
           <li>
             <a
-             [routerLink]="'profile'"
+              [routerLink]="'profile'"
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
               >Profile</a
             >

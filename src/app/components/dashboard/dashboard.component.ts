@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result: IPopup) => {
-      if (result.confirm) {
+      if (result && result.confirm) {
         this.isCreatingOrUpdatingGroup = true;
         this.createGroup(result.data.form_value);
       }
@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result: IPopup) => {
-      if (result.confirm) {
+      if (result && result.confirm) {
         this.isCreatingOrUpdatingGroup = true;
         this.updateGroup(result.data.id, result.data.form_value);
       }
@@ -89,11 +89,21 @@ export class DashboardComponent implements OnInit {
   }
 
   createGroup(formData: any) {
-    this.groupService.create(formData).subscribe((data: IGroup) => {
-      this.toastService.showToast(`Group: ${data.name} Created!`, 'success');
-      this.groups.unshift(data);
-      this.isCreatingOrUpdatingGroup = false;
-    });
+    this.groupService.create(formData).subscribe(
+      (data: IGroup) => {
+        if (data) {
+          this.toastService.showToast(
+            `Group: ${data.name} Created!`,
+            'success'
+          );
+          this.groups.unshift(data);
+          this.isCreatingOrUpdatingGroup = false;
+        }
+      },
+      () => {
+        this.isCreatingOrUpdatingGroup = false;
+      }
+    );
   }
 
   updateGroup(groupId: number, formData: any) {
@@ -128,7 +138,7 @@ export class DashboardComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: IPopup) => {
-      if (result.confirm) {
+      if (result && result.confirm) {
         this.isCreatingOrUpdatingGroup = true;
         this.deleteGroup(result.data.id, result.data.index);
       }

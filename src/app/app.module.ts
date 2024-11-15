@@ -19,7 +19,12 @@ import { SharedComponentsModule } from 'src/app/modules/shared-components/shared
 import { GroupFormComponent } from 'src/app/components/group-form/group-form.component';
 import { ProfileComponent } from 'src/app/components/profile/profile.component';
 import { HomepageComponent } from 'src/app/components/homepage/homepage.component';
-
+import {
+  GoogleLoginProvider,
+  SocialAuthServiceConfig,
+} from '@abacritt/angularx-social-login';
+import { environment } from 'src/environments/environment';
+import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +47,7 @@ import { HomepageComponent } from 'src/app/components/homepage/homepage.componen
     ToastModule,
     MatDialogModule,
     SharedComponentsModule,
+    GoogleSigninButtonModule,
   ],
   providers: [
     {
@@ -53,6 +59,21 @@ import { HomepageComponent } from 'src/app/components/homepage/homepage.componen
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
+    },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(environment.google_client_id),
+          },
+        ],
+        onError: (err) => {
+          console.log(err);
+        },
+      } as SocialAuthServiceConfig,
     },
   ],
   bootstrap: [AppComponent],
