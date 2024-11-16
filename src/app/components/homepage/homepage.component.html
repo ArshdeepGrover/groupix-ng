@@ -1,3 +1,46 @@
-<p>
-  homepage works!
-</p>
+<section>
+  <!-- First Section -->
+  <div class="first-section">
+    <div class="text-area">
+      <p class="heading">Split Expenses Effortlessly</p>
+      <p class="sub-heading">
+        Groupix makes managing shared expenses a breeze. Create groups, track
+        spending, and settle up with friends in seconds.
+      </p>
+    </div>
+    <div class="image-area">
+      <img src="./assets/images/image.png" />
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!--Why Choose Groupix  -->
+  <div class="why-choose-groupix">
+    <h2>Why Choose Groupix?</h2>
+    <!-- <p class="sub-heading">Your Expense Management Solution</p> -->
+    <div class="cards">
+      <div *ngFor="let card of whyChooseGroupix" class="card">
+        <img [src]="card.image" [alt]="card.title" [title]="card.title" />
+        <p class="title">{{ card.title }}</p>
+        <p class="description">{{ card.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- How It Works -->
+  <div class="how-it-works">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div *ngFor="let step of howItWorks">
+        <div class="order">{{ step.order }}</div>
+        <div class="title">Step {{ step.order }}: {{ step.title }}</div>
+        <div class="description">{{ step.description }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+</section>
