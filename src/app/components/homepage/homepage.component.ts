@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IUser } from 'src/app/models/user.model';
+import { LoginProviderService } from 'src/app/services/login-provide.service';
 
 @Component({
   selector: 'app-homepage',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./homepage.component.scss'],
 })
 export class HomepageComponent implements OnInit {
+  user: IUser | null | undefined;
   whyChooseGroupix = [
     {
       image: './assets/images/why_choose/image_1.png',
@@ -48,7 +51,11 @@ export class HomepageComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private readonly loginProviderService: LoginProviderService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loginProviderService.currentUser$.subscribe((data) => {
+      this.user = data;
+    });
+  }
 }

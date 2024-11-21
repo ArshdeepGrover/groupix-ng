@@ -7,6 +7,10 @@
         Groupix makes managing shared expenses a breeze. Create groups, track
         spending, and settle up with friends in seconds.
       </p>
+      <div class="action-button">
+        <button *ngIf="user" [routerLink]="['dashboard']">Dashboard</button>
+        <button *ngIf="!user" [routerLink]="['login']">Login</button>
+      </div>
     </div>
     <div class="image-area">
       <img src="./assets/images/image.png" />

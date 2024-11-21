@@ -8,6 +8,12 @@ section {
       .sub-heading {
         @apply text-base text-gray-700 mt-4 w-4/5 dark:text-white;
       }
+      .action-button {
+        @apply mt-8;
+        button {
+          @apply focus:outline-none text-white bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-900;
+        }
+      }
     }
     .image-area {
       @apply md:flex hidden;
@@ -48,7 +54,7 @@ section {
     .steps {
       @apply grid grid-cols-1 md:grid-cols-3 my-20;
       .order {
-        @apply rounded-full w-8 aspect-square bg-primary-500 flex justify-center items-center font-semibold;
+        @apply rounded-full w-8 aspect-square bg-primary-500 flex justify-center items-center font-semibold text-white;
       }
       .title {
         @apply text-lg pt-3 font-semibold;
