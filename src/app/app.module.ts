@@ -18,6 +18,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SharedComponentsModule } from 'src/app/modules/shared-components/shared-components.module';
 import { GroupFormComponent } from 'src/app/components/group-form/group-form.component';
 import { ProfileComponent } from 'src/app/components/profile/profile.component';
+import { HomepageComponent } from 'src/app/components/homepage/homepage.component';
 import {
   GoogleLoginProvider,
   SocialAuthServiceConfig,
@@ -35,6 +36,7 @@ import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
     PageNotFoundComponent,
     GroupFormComponent,
     ProfileComponent,
+    HomepageComponent,
   ],
   imports: [
     BrowserModule,
