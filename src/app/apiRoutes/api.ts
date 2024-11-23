@@ -16,4 +16,12 @@ export const ROUTES = {
     DESTROY: 'groups', // delete
     UPDATE: 'groups', // put
   },
+
+  BILLS: {
+    INDEX: 'bills',
+    SHOW: 'bills/show',
+    CREATE: 'bills', //post
+    DESTROY: 'bills',
+    UPDATE: 'bills',
+  },
 };

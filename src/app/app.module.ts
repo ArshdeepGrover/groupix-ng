@@ -25,6 +25,7 @@ import {
 } from '@abacritt/angularx-social-login';
 import { environment } from 'src/environments/environment';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { BillFormComponent } from 'src/app/components/bill-form/bill-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
     GroupFormComponent,
     ProfileComponent,
     HomepageComponent,
+    BillFormComponent,
   ],
   imports: [
     BrowserModule,
