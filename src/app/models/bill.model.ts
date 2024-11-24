@@ -1,3 +1,5 @@
+import { IUser } from 'src/app/models/user.model';
+
 export interface IBill {
   id: number;
   description: string;
@@ -11,6 +13,7 @@ export interface IBill {
   created_at: string;
   updated_at: string;
   currency_type_symbol: string;
+  payer: IUser;
 }
 
 export interface IBillGraph {

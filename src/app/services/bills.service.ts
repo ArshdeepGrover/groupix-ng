@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
-import { ROUTES } from '../apiRoutes/api';
 import { Observable } from 'rxjs';
 import { IBill, IBillGraph } from 'src/app/models/bill.model';
-import { IBillShare } from 'src/app/models/bill-shared.model';
+import { IBillShareWithSum } from 'src/app/models/bill-shared.model';
+import { ROUTES } from 'src/app/apiRoutes/api';
 
 @Injectable({
   providedIn: 'root',
@@ -25,12 +25,9 @@ export class BillsService extends BaseService {
 
   index(groupId: number): Observable<IBill[]> {
     const params = new HttpParams().set('group_id', groupId);
-    return this.http.get<IBill[]>(
-      `${this.apiUrl}/${ROUTES.BILLS.INDEX}`,
-      {
-        params,
-      }
-    );
+    return this.http.get<IBill[]>(`${this.apiUrl}/${ROUTES.BILLS.INDEX}`, {
+      params,
+    });
   }
 
   indexForGraph(groupId: number): Observable<IBillGraph[]> {
@@ -43,9 +40,9 @@ export class BillsService extends BaseService {
     );
   }
 
-  getSharedBills(groupId: number): Observable<IBillShare[]> {
+  getSharedBillsWithSum(groupId: number): Observable<IBillShareWithSum> {
     const params = new HttpParams().set('group_id', groupId);
-    return this.http.get<IBillShare[]>(
+    return this.http.get<IBillShareWithSum>(
       `${this.apiUrl}/${ROUTES.BILLS.SHARE_BILLS}`,
       {
         params,

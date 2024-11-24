@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as ApexCharts from 'apexcharts';
+import { IBillShareWithSum } from 'src/app/models/bill-shared.model';
 import { IBillGraph } from 'src/app/models/bill.model';
 import { BillsService } from 'src/app/services/bills.service';
 
@@ -15,6 +16,7 @@ export class GroupDashboardComponent implements OnInit, OnDestroy {
   currency: any;
   isLoading = true;
   chart: any;
+  billShareWithSum!: IBillShareWithSum;
   constructor(
     private billService: BillsService,
     private activatedRoute: ActivatedRoute
@@ -24,6 +26,7 @@ export class GroupDashboardComponent implements OnInit, OnDestroy {
     this.activatedRoute.parent?.params.subscribe((params) => {
       this.group_id = Number(params['id']);
       this.getBills();
+      this.getShareBills();
     });
   }
 
@@ -119,5 +122,13 @@ export class GroupDashboardComponent implements OnInit, OnDestroy {
       );
       this.chart.render();
     }
+  }
+
+  getShareBills() {
+    this.billService
+      .getSharedBillsWithSum(this.group_id)
+      .subscribe((res: IBillShareWithSum) => {
+        this.billShareWithSum = res;
+      });
   }
 }

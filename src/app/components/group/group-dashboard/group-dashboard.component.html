@@ -1,23 +1,24 @@
 <app-spinner *ngIf="isLoading"></app-spinner>
 
-<div
-  class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6"
->
-  <div class="flex justify-between">
-    <div>
-      <h5
-        class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2"
-        *ngIf="bills"
-      >
-        {{ bills[0].currency_symbol }} {{ bills[0].total }}
-      </h5>
-      <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-        Total Bills Amount
-      </p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+  <div
+    class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6"
+  >
+    <div class="flex justify-between">
+      <div>
+        <h5
+          class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2"
+          *ngIf="bills"
+        >
+          {{ bills[0].currency_symbol }} {{ bills[0].total }}
+        </h5>
+        <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+          Total Bills Amount
+        </p>
+      </div>
     </div>
-  </div>
-  <div id="area-chart"></div>
-  <!-- <div
+    <div id="area-chart"></div>
+    <!-- <div
     class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between"
   >
     <div class="flex justify-between items-center pt-5">
@@ -113,4 +114,21 @@
       </a>
     </div>
   </div> -->
+  </div>
+
+  <div class="bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+    <div class="flex justify-between">
+      <div>
+        <h5
+          class="leading-none text-3xl font-bold text-red-600 dark:text-red-600 pb-2"
+          *ngIf="bills"
+        >
+          {{ bills[0].currency_symbol }} {{ billShareWithSum.sum }}
+        </h5>
+        <p class="text-base font-normal text-red-600 dark:text-red-600">
+          Amount you owe
+        </p>
+      </div>
+    </div>
+  </div>
 </div>

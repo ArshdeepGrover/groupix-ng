@@ -5,7 +5,6 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { GroupFormComponent } from 'src/app/components/group-form/group-form.component';
 import { IData } from 'src/app/models/popup.model';
 import { buttonsStore } from 'src/app/store/buttons.store';
-import { svgIcons } from 'src/app/store/svg.store';
 
 @Component({
   selector: 'app-bill-form',

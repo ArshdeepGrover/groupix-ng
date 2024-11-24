@@ -7,3 +7,8 @@ export interface IBillShare {
   created_at: string;
   updated_at: string;
 }
+
+export interface IBillShareWithSum {
+  bill_share: IBillShare[];
+  sum: string;
+}
