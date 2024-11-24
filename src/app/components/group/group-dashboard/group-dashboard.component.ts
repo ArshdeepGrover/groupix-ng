@@ -1,13 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as ApexCharts from 'apexcharts';
-import { IBill, IBillGraph } from 'src/app/models/bill.model';
-import { IGroup } from 'src/app/models/group.model';
+import { IBillGraph } from 'src/app/models/bill.model';
 import { BillsService } from 'src/app/services/bills.service';
-import {
-  Countries,
-  ICountyDetails,
-} from 'src/app/store/countries-details.store';
 
 @Component({
   selector: 'app-group-dashboard',
@@ -17,7 +12,6 @@ import {
 export class GroupDashboardComponent implements OnInit, OnDestroy {
   group_id!: number;
   bills!: IBillGraph[];
-  countryDetails = Countries;
   currency: any;
   isLoading = true;
   chart: any;
