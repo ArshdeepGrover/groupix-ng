@@ -33,6 +33,13 @@ export class GroupsService extends BaseService {
     );
   }
 
+  show(groupId: number | string): Observable<IGroup> {
+    const params = new HttpParams().set('group_id', Number(groupId));
+    return this.http.get<IGroup>(`${this.apiUrl}/${ROUTES.GROUPS.SHOW}`, {
+      params,
+    });
+  }
+
   update(groupId: number, data: any): Observable<IGroup> {
     const params = new HttpParams().set('group_id', groupId);
     return this.http.put<IGroup>(

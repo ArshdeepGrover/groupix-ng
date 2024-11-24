@@ -18,10 +18,12 @@ export const ROUTES = {
   },
 
   BILLS: {
-    INDEX: 'bills',
+    INDEX: 'bills', //get
+    INDEX_GRAPH: 'bills/index_graph', //get
     SHOW: 'bills/show',
     CREATE: 'bills', //post
     DESTROY: 'bills',
     UPDATE: 'bills',
+    SHARE_BILLS: 'bills/share_bills', //get
   },
 };

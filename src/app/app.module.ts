@@ -26,6 +26,11 @@ import {
 import { environment } from 'src/environments/environment';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { BillFormComponent } from 'src/app/components/bill-form/bill-form.component';
+import { GroupComponent } from 'src/app/components/group/group.component';
+import { GroupDashboardComponent } from 'src/app/components/group/group-dashboard/group-dashboard.component';
+import { EditGroupComponent } from 'src/app/components/group/edit-group/edit-group.component';
+import { BillsComponent } from 'src/app/components/group/bills/bills.component';
+import { GroupMembersComponent } from 'src/app/components/group/group-members/group-members.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +44,11 @@ import { BillFormComponent } from 'src/app/components/bill-form/bill-form.compon
     ProfileComponent,
     HomepageComponent,
     BillFormComponent,
+    GroupComponent,
+    GroupDashboardComponent,
+    EditGroupComponent,
+    BillsComponent,
+    GroupMembersComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,7 +83,7 @@ import { BillFormComponent } from 'src/app/components/bill-form/bill-form.compon
           },
         ],
         onError: (err) => {
-          console.log(err);
+          console.error(err);
         },
       } as SocialAuthServiceConfig,
     },

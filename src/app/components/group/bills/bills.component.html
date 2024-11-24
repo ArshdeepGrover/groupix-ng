@@ -1,0 +1,22 @@
+<div class="relative overflow-auto shadow-md sm:rounded-lg">
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Divided Equally</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bill of bills">
+        <td scope="row">
+          {{ bill.description }}
+        </td>
+        <td>{{ bill.currency_type_symbol }}{{ bill.amount }}</td>
+        <td>{{ bill.divide_equally ? "Yes" : "No" }}</td>
+        <td>{{ bill.date | date : "medium" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

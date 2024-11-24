@@ -23,7 +23,7 @@ export class BillFormComponent implements OnInit {
   ) {
     this.billForm = this.fb.group({
       description: ['', Validators.required],
-      amount: [NaN, Validators.required],
+      amount: [0, Validators.required],
       date: [new Date()],
       currency_type: ['INR', Validators.required],
       divide_equally: [true, Validators.required],
