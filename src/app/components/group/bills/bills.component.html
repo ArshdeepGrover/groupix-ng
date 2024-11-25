@@ -1,4 +1,8 @@
 <div class="relative overflow-auto shadow-md sm:rounded-lg">
+  <button (click)="openBillDialog()" type="button" class="add-expense">
+    <div [innerHTML]="plusInCircle"></div>
+    Add Expense
+  </button>
   <table>
     <thead>
       <tr>
@@ -24,7 +28,7 @@
         </td>
       </tr>
       <tr>
-        <td colspan="5">{{ bills.length }}</td>
+        <td colspan="5" *ngIf="bills">Total Bills: {{ bills.length }}</td>
       </tr>
     </tbody>
   </table>
