@@ -1,0 +1,18 @@
+.container {
+  @apply h-[90dvh] flex flex-col justify-center items-center gap-10;
+  div {
+    @apply text-center;
+    h1 {
+      @apply text-7xl font-bold;
+    }
+    h2 {
+      @apply text-2xl;
+    }
+  }
+  img {
+    @apply w-3/4 md:w-[400px] md:h-[400px];
+  }
+  a {
+    @apply flex gap-3 items-center;
+  }
+}
