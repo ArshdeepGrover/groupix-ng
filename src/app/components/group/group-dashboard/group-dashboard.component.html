@@ -1,6 +1,6 @@
 <app-spinner *ngIf="isLoading"></app-spinner>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+<div class="flex gap-10">
   <div
     class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6"
   >
@@ -116,19 +116,28 @@
   </div> -->
   </div>
 
-  <!-- <div class="bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+  <div class="bg-white rounded-lg shadow-md dark:bg-gray-800 p-4 md:p-6 h-max">
     <div class="flex justify-between">
       <div>
         <h5
           class="leading-none text-3xl font-bold text-red-600 dark:text-red-600 pb-2"
           *ngIf="bills"
         >
-          {{ bills[0].currency_symbol }} {{ billShareWithSum.sum }}
+          {{ bills[0].currency_symbol }} {{ billShareWithSum.total_sum }}
         </h5>
         <p class="text-base font-normal text-red-600 dark:text-red-600">
           Amount you owe
         </p>
       </div>
     </div>
-  </div> -->
+  </div>
+
+  <div class="bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+    <div class="flex flex-col justify-between">
+      <div *ngFor="let users of billShareWithSum.user_details">
+        <app-user-card [user]="users.user"></app-user-card>
+        {{ users.user_sum }}
+      </div>
+    </div>
+  </div>
 </div>

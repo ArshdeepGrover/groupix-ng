@@ -12,32 +12,8 @@
     <div class="flow-root">
       <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
         <li class="py-3 sm:py-4" *ngFor="let adminRole of group.admin">
-          <div class="flex items-center">
-            <div class="flex-shrink-0">
-              <div
-                class="w-8 h-8 rounded-full bg-primary-300 flex items-center justify-center text-black text-xl font-bold"
-              >
-                <span *ngIf="!adminRole.user.avatar">{{
-                  adminRole.user.name.charAt(0) | titlecase
-                }}</span>
-                <img
-                  *ngIf="adminRole.user.avatar"
-                  class="w-8 h-8 rounded-full"
-                  [src]="adminRole.user.avatar"
-                  alt="user photo"
-                />
-              </div>
-            </div>
-            <div class="flex-1 min-w-0 ms-4">
-              <p
-                class="text-sm font-medium text-gray-900 truncate dark:text-white"
-              >
-                {{ adminRole.user.name }}
-              </p>
-              <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                {{ adminRole.user.email }}
-              </p>
-            </div>
+          <div class="flex items-center justify-between">
+            <app-user-card [user]="adminRole.user"></app-user-card>
             <div
               class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
             >
@@ -46,32 +22,8 @@
           </div>
         </li>
         <li class="py-3 sm:py-4" *ngFor="let memberRole of group.members">
-          <div class="flex items-center">
-            <div class="flex-shrink-0">
-              <div
-                class="w-8 h-8 rounded-full bg-primary-300 flex items-center justify-center text-black text-xl font-bold"
-              >
-                <span *ngIf="!memberRole.user.avatar">{{
-                  memberRole.user.name.charAt(0) | titlecase
-                }}</span>
-                <img
-                  *ngIf="memberRole.user.avatar"
-                  class="w-8 h-8 rounded-full"
-                  [src]="memberRole.user.avatar"
-                  alt="user photo"
-                />
-              </div>
-            </div>
-            <div class="flex-1 min-w-0 ms-4">
-              <p
-                class="text-sm font-medium text-gray-900 truncate dark:text-white"
-              >
-                {{ memberRole.user.name }}
-              </p>
-              <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                {{ memberRole.user.email }}
-              </p>
-            </div>
+          <div class="flex items-center justify-between">
+            <app-user-card [user]="memberRole.user"></app-user-card>
             <div
               class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"
             >

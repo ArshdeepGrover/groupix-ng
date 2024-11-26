@@ -4,11 +4,16 @@ import { DeletePopupDialogComponent } from 'src/app/modules/shared-components/de
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SpinnerComponent } from 'src/app/modules/shared-components/spinner/spinner.component';
+import { UserCardComponent } from 'src/app/modules/shared-components/cards/user-card/user-card.component';
 
 @NgModule({
-  declarations: [DeletePopupDialogComponent, SpinnerComponent],
+  declarations: [
+    DeletePopupDialogComponent,
+    SpinnerComponent,
+    UserCardComponent,
+  ],
   imports: [CommonModule, MatButtonModule, MatDialogModule],
 
-  exports: [DeletePopupDialogComponent, SpinnerComponent],
+  exports: [DeletePopupDialogComponent, SpinnerComponent, UserCardComponent],
 })
 export class SharedComponentsModule {}

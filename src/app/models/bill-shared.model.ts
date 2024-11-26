@@ -1,3 +1,5 @@
+import { IUser } from "src/app/models/user.model";
+
 export interface IBillShare {
   id: number;
   share_amount: string;
@@ -9,6 +11,11 @@ export interface IBillShare {
 }
 
 export interface IBillShareWithSum {
-  bill_share: IBillShare[];
-  sum: string;
+  user_details: UserDetail[];
+  total_sum: string;
+}
+
+export interface UserDetail {
+  user: IUser;
+  user_sum: string;
 }

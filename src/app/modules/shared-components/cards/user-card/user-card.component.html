@@ -1,0 +1,23 @@
+<div class="flex items-center">
+  <div class="flex-shrink-0">
+    <div
+      class="w-8 h-8 rounded-full bg-primary-300 flex items-center justify-center text-black text-xl font-bold"
+    >
+      <span *ngIf="!user.avatar">{{ user.name.charAt(0) | titlecase }}</span>
+      <img
+        *ngIf="user.avatar"
+        class="w-8 h-8 rounded-full"
+        [src]="user.avatar"
+        alt="user photo"
+      />
+    </div>
+  </div>
+  <div class="flex-1 min-w-0 ms-4">
+    <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+      {{ user.name }}
+    </p>
+    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+      {{ user.email }}
+    </p>
+  </div>
+</div>
