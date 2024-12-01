@@ -1,0 +1,15 @@
+.bill-share-users-container {
+  @apply bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6;
+  .users-card {
+    @apply flex flex-col justify-between gap-4;
+    .user-card {
+      @apply flex items-center gap-x-4 pb-2 justify-between;
+      .amount {
+        @apply font-bold text-xl;
+      }
+    }
+    .user-card:not(:last-child) {
+      @apply border-b border-solid border-lightBorderColor dark:border-darkBorderColor;
+    }
+  }
+}

@@ -23,7 +23,7 @@ export class BillFormComponent implements OnInit {
     this.billForm = this.fb.group({
       description: ['', Validators.required],
       amount: [0, Validators.required],
-      date: [new Date()],
+      date: [],
       currency_type: ['INR', Validators.required],
       divide_equally: [true, Validators.required],
       payer_id: [this.data.currentUser.id, Validators.required],
@@ -33,7 +33,20 @@ export class BillFormComponent implements OnInit {
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const todayDateTime = new Date();
+
+    // Convert to local time in the format 'YYYY-MM-DDTHH:mm'
+    const localDateTime = new Date(
+      todayDateTime.getTime() - todayDateTime.getTimezoneOffset() * 60000
+    )
+      .toISOString()
+      .slice(0, 16);
+
+    this.billForm.patchValue({
+      date: localDateTime,
+    });
+  }
 
   createExpense() {
     this.dialogRef.close({

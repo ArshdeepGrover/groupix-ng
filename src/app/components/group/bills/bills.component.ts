@@ -59,6 +59,7 @@ export class BillsComponent implements OnInit {
         id: this.group.id,
         currentUser: this.currentUser,
         primary_button_text: 'Add Expense',
+        members: [...this.group.admin, ...this.group.members],
       },
     });
     dialogRef.afterClosed().subscribe((result: IPopup) => {

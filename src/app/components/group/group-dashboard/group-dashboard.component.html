@@ -1,6 +1,6 @@
 <app-spinner *ngIf="isLoading"></app-spinner>
 
-<div class="flex gap-10">
+<div class="flex gap-8">
   <div
     class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6"
   >
@@ -8,7 +8,7 @@
       <div>
         <h5
           class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2"
-          *ngIf="bills"
+          *ngIf="bills && bills[0]"
         >
           {{ bills[0].currency_symbol }} {{ bills[0].total }}
         </h5>
@@ -116,27 +116,58 @@
   </div> -->
   </div>
 
-  <div class="bg-white rounded-lg shadow-md dark:bg-gray-800 p-4 md:p-6 h-max">
-    <div class="flex justify-between">
-      <div>
-        <h5
-          class="leading-none text-3xl font-bold text-red-600 dark:text-red-600 pb-2"
-          *ngIf="bills"
-        >
-          {{ bills[0].currency_symbol }} {{ billShareWithSum.total_sum }}
-        </h5>
-        <p class="text-base font-normal text-red-600 dark:text-red-600">
-          Amount you owe
-        </p>
+  <div>
+    <div
+      class="bg-white rounded-lg shadow-md dark:bg-gray-800 p-4 md:p-6 h-max"
+    >
+      <div class="flex justify-between">
+        <div>
+          <h5
+            class="leading-none text-3xl font-bold text-red-600 dark:text-red-600 pb-2"
+            *ngIf="bills && billShareWithSum && billShareWithSum.total_sum"
+          >
+            - {{ bills[0].currency_symbol }} {{ billShareWithSum.total_sum }}
+          </h5>
+          <p class="text-base font-normal text-red-600 dark:text-red-600">
+            Amount you owe
+          </p>
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+    <div
+      class="bg-white rounded-lg shadow-md dark:bg-gray-800 p-4 md:p-6 h-max"
+    >
+      <div class="flex justify-between">
+        <div>
+          <h5
+            class="leading-none text-3xl font-bold text-green-400 dark:text-green-500 pb-2"
+            *ngIf="bills && billShareWithSum && billShareWithSum.total_sum"
+          >
+            + {{ bills[0].currency_symbol }} {{ billShareWithSum.total_sum }}
+          </h5>
+          <p class="text-base font-normal text-green-400 dark:text-green-500">
+            Amount you owe
+          </p>
+        </div>
       </div>
     </div>
   </div>
-
-  <div class="bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-    <div class="flex flex-col justify-between">
-      <div *ngFor="let users of billShareWithSum.user_details">
+  <div
+    class="bill-share-users-container"
+    *ngIf="billShareWithSum?.user_details && bills"
+  >
+    <div class="users-card">
+      <div
+        *ngFor="let users of billShareWithSum.user_details"
+        class="user-card"
+      >
         <app-user-card [user]="users.user"></app-user-card>
-        {{ users.user_sum }}
+        <span class="amount"
+          >{{ bills[0].currency_symbol }}{{ users.user_sum }}</span
+        >
       </div>
     </div>
   </div>
