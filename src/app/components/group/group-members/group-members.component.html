@@ -1,4 +1,5 @@
 <app-spinner *ngIf="isLoading"></app-spinner>
+<button (click)="addMemberPopup()">Add Member</button>
 <div class="flex items-center justify-center">
   <div
     class="w-full p-4 sm:p-8 dark:bg-gray-800 text-sm text-left text-gray-500 dark:text-gray-400 border border-solid border-lightBorderColor dark:border-darkBorderColor rounded-md overflow-hidden"
@@ -35,3 +36,37 @@
     </div>
   </div>
 </div>
+
+<ng-template #addMember>
+  <form method="post" [formGroup]="userEmailForm">
+    <div class="mb-4">
+      <label
+        for="default-input"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Email of member</label
+      >
+      <input type="email" formControlName="user_email" placeholder="Name" />
+    </div>
+    <div class="mb-4">
+      <label
+        for="default-input"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Role type</label
+      >
+      <select
+        name="member_role_type_id"
+        id="member_role_type_id"
+        formControlName="member_role_type_id"
+      >
+        <option selected default [ngValue]="3">Member</option>
+        <option [ngValue]="2">Admin</option>
+      </select>
+    </div>
+
+    <!-- Button to add a new email -->
+    <button type="button" (click)="addMemberAdmin()" class="add-email-button">
+      <!-- <div [innerHTML]="plusIcon"></div> -->
+      Add Member's Email
+    </button>
+  </form>
+</ng-template>

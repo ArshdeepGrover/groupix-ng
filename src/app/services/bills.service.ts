@@ -49,4 +49,23 @@ export class BillsService extends BaseService {
       }
     );
   }
+  getAmountYouOwe(groupId: number): Observable<number> {
+    const params = new HttpParams().set('group_id', groupId);
+    return this.http.get<number>(
+      `${this.apiUrl}/${ROUTES.BILLS.AMOUNT_YOU_OWE}`,
+      {
+        params,
+      }
+    );
+  }
+
+  getAmountYouLent(groupId: number): Observable<number> {
+    const params = new HttpParams().set('group_id', groupId);
+    return this.http.get<number>(
+      `${this.apiUrl}/${ROUTES.BILLS.AMOUNT_YOU_LENT}`,
+      {
+        params,
+      }
+    );
+  }
 }

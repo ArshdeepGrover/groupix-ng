@@ -17,6 +17,9 @@ export class GroupDashboardComponent implements OnInit, OnDestroy {
   isLoading = true;
   chart: any;
   billShareWithSum!: IBillShareWithSum;
+  amountYouOwe: number = 0;
+  amountYouLent: number = 0;
+
   constructor(
     private billService: BillsService,
     private activatedRoute: ActivatedRoute
@@ -27,6 +30,8 @@ export class GroupDashboardComponent implements OnInit, OnDestroy {
       this.group_id = Number(params['id']);
       this.getBills();
       this.getShareBills();
+      this.getAmountYouOwe();
+      this.getAmountYouLent();
     });
   }
 
@@ -130,5 +135,15 @@ export class GroupDashboardComponent implements OnInit, OnDestroy {
       .subscribe((res: IBillShareWithSum) => {
         this.billShareWithSum = res;
       });
+  }
+  getAmountYouOwe() {
+    this.billService.getAmountYouOwe(this.group_id).subscribe((res) => {
+      this.amountYouOwe = res;
+    });
+  }
+  getAmountYouLent() {
+    this.billService.getAmountYouLent(this.group_id).subscribe((res) => {
+      this.amountYouLent = res;
+    });
   }
 }
