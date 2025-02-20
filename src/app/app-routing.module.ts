@@ -37,29 +37,6 @@ const routes: Routes = [
     component: DashboardComponent,
   },
   {
-    path: 'group/:id',
-    component: GroupComponent,
-    resolve: { group: GroupResolver },
-    children: [
-      {
-        path: '',
-        component: GroupDashboardComponent,
-      },
-      {
-        path: 'edit',
-        component: EditGroupComponent,
-      },
-      {
-        path: 'bills',
-        component: BillsComponent,
-      },
-      {
-        path: 'members',
-        component: GroupMembersComponent,
-      },
-    ],
-  },
-  {
     path: 'profile',
     component: ProfileComponent,
   },
