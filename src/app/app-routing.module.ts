@@ -14,6 +14,13 @@ const routes: Routes = [
     component: HomepageComponent,
   },
   {
+    path: 'finasync',
+    loadChildren: () =>
+      import('./modules/finasync/finasync.module').then(
+        (m) => m.FinasyncModule
+      ),
+  },
+  {
     path: 'login',
     component: LoginComponent,
   },
@@ -28,6 +35,29 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+  },
+  {
+    path: 'group/:id',
+    component: GroupComponent,
+    resolve: { group: GroupResolver },
+    children: [
+      {
+        path: '',
+        component: GroupDashboardComponent,
+      },
+      {
+        path: 'edit',
+        component: EditGroupComponent,
+      },
+      {
+        path: 'bills',
+        component: BillsComponent,
+      },
+      {
+        path: 'members',
+        component: GroupMembersComponent,
+      },
+    ],
   },
   {
     path: 'profile',
