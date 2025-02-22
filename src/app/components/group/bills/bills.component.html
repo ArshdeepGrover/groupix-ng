@@ -1,0 +1,35 @@
+<button (click)="openBillDialog()" type="button" class="add-expense">
+  <div [innerHTML]="plusInCircle"></div>
+  Add Expense
+</button>
+<div class="relative overflow-auto shadow-md sm:rounded-lg">
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Divided Equally</th>
+        <th>Date</th>
+        <th>Payer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bill of bills">
+        <td scope="row">
+          {{ bill.description }}
+        </td>
+        <td>{{ bill.currency_type_symbol }}{{ bill.amount }}</td>
+        <td>{{ bill.divide_equally ? "Yes" : "No" }}</td>
+        <td>{{ bill.date | date : "medium" }}</td>
+        <td>
+          {{ bill.payer.name }}
+          <br />
+          {{ bill.payer.email }}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="5" *ngIf="bills">Total Bills: {{ bills.length }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

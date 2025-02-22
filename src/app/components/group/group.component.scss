@@ -1,0 +1,25 @@
+.group-name {
+  @apply w-max border border-solid border-lightBorderColor dark:border-darkBorderColor rounded-lg py-2 pl-2 pr-6 bg-primary-100/35 font-bold text-lg;
+}
+
+a {
+  @apply flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700;
+  svg {
+    @apply w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white;
+  }
+  &.active {
+    @apply bg-gray-100 dark:bg-gray-700;
+    svg {
+      @apply text-gray-900 dark:text-white;
+    }
+  }
+}
+a:hover {
+  svg {
+    @apply text-gray-900 dark:text-white;
+  }
+}
+
+.dollar-sign {
+  @apply stroke-white dark:stroke-black;
+}

@@ -33,6 +33,13 @@ export class GroupsService extends BaseService {
     );
   }
 
+  show(groupId: number | string): Observable<IGroup> {
+    const params = new HttpParams().set('group_id', Number(groupId));
+    return this.http.get<IGroup>(`${this.apiUrl}/${ROUTES.GROUPS.SHOW}`, {
+      params,
+    });
+  }
+
   update(groupId: number, data: any): Observable<IGroup> {
     const params = new HttpParams().set('group_id', groupId);
     return this.http.put<IGroup>(
@@ -40,6 +47,20 @@ export class GroupsService extends BaseService {
       {
         group: data,
       },
+      { params }
+    );
+  }
+
+  createMemberOrAdmin(
+    groupId: number,
+    userEmail: number,
+    memberRoleTypeId: number
+  ) {
+    const params = new HttpParams().set('group_id', groupId);
+
+    return this.http.post<IGroup>(
+      `${this.apiUrl}/${ROUTES.GROUPS.CREATE_MEMBER_ADMIN}`,
+      { user_email: userEmail, member_role_type_id: memberRoleTypeId },
       { params }
     );
   }
