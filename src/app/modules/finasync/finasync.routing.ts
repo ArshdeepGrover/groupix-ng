@@ -5,6 +5,8 @@ import { CreditCardsComponent } from './components/credit-cards/credit-cards.com
 import { FinasyncDashboardComponent } from './components/finasync-dashboard/finasync-dashboard.component';
 import { GraphsComponent } from './components/graphs/graphs.component';
 import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
+import { FormComponent } from 'src/app/modules/finasync/components/bank-accounts/form/form.component';
+import { AccountsTableComponent } from 'src/app/modules/finasync/components/bank-accounts/accounts-table/accounts-table.component';
 
 const routes: Routes = [
   {
@@ -14,6 +16,17 @@ const routes: Routes = [
       {
         path: 'bank-accounts',
         component: BankAccountsComponent,
+        children: [
+          {
+            path: '',
+            component: AccountsTableComponent,
+          },
+          {
+            path: 'new',
+            component: FormComponent,
+          },
+          { path: 'edit/:uuid_id', component: FormComponent },
+        ],
       },
       {
         path: 'credit-cards',

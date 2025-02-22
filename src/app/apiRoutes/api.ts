@@ -29,4 +29,21 @@ export const ROUTES = {
     AMOUNT_YOU_OWE: 'bills/amount_you_owe', //get
     AMOUNT_YOU_LENT: 'bills/amount_you_lent', //get
   },
+
+  BANK_ACCOUNTS: {
+    INDEX: 'bank_accounts', //get
+    SHOW: 'bank_accounts/show', //get
+    CREATE: 'bank_accounts', //post
+    DESTROY: 'bank_accounts', //delete
+    UPDATE: 'bank_accounts', //put
+    SET_PRIMARY: 'bank_accounts/set_primary', //put
+  },
+
+  TRANSACTIONS: {
+    INDEX: 'transactions', //get
+    SHOW: 'transactions/show', //get
+    CREATE: 'transactions', //post
+    DESTROY: 'transactions', //delete
+    UPDATE: 'transactions', //put
+  },
 };

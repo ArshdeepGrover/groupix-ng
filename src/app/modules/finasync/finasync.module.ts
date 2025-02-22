@@ -7,9 +7,19 @@ import { CreditCardsComponent } from './components/credit-cards/credit-cards.com
 import { GraphsComponent } from './components/graphs/graphs.component';
 import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
 import { CategoriesComponent } from './components/categories/categories.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormComponent } from './components/bank-accounts/form/form.component';
+import { AccountsTableComponent } from './components/bank-accounts/accounts-table/accounts-table.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
-  imports: [CommonModule, FinasyncRoutes],
+  imports: [
+    CommonModule,
+    FinasyncRoutes,
+    ReactiveFormsModule,
+    FormsModule,
+    NgSelectModule,
+  ],
   declarations: [
     FinasyncDashboardComponent,
     BankAccountsComponent,
@@ -17,6 +27,8 @@ import { CategoriesComponent } from './components/categories/categories.componen
     GraphsComponent,
     SubscriptionsComponent,
     CategoriesComponent,
+    FormComponent,
+    AccountsTableComponent,
   ],
 })
 export class FinasyncModule {}

@@ -9,12 +9,11 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import {ToasterService} from "../modules/toast/toaster.service";
+import { ToasterService } from '../modules/toast/toaster.service';
 
 @Injectable()
 export class ApiResponseInterceptor implements HttpInterceptor {
-  constructor(private toastService: ToasterService) {
-  }
+  constructor(private toastService: ToasterService) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -32,8 +31,8 @@ export class ApiResponseInterceptor implements HttpInterceptor {
         // Handle error responses and pass it to the error handling service
         // this.apiErrorHandlingService.handleError(error);
         // Optionally rethrow the error if you want the component to handle it as well
-        let error_message = error.error.message
-        if(error_message !== 'User not found'){
+        let error_message = error.error.message;
+        if (error_message !== 'User not found') {
           this.toastService.showToast(error_message, 'error');
         }
         return throwError(error_message);
