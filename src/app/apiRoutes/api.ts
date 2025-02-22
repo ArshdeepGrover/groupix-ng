@@ -15,5 +15,18 @@ export const ROUTES = {
     CREATE: 'groups', // post
     DESTROY: 'groups', // delete
     UPDATE: 'groups', // put
+    CREATE_MEMBER_ADMIN: 'groups/create_member_admin', //post
+  },
+
+  BILLS: {
+    INDEX: 'bills', //get
+    INDEX_GRAPH: 'bills/index_graph', //get
+    SHOW: 'bills/show',
+    CREATE: 'bills', //post
+    DESTROY: 'bills',
+    UPDATE: 'bills',
+    SHARE_BILLS: 'bills/share_bills', //get
+    AMOUNT_YOU_OWE: 'bills/amount_you_owe', //get
+    AMOUNT_YOU_LENT: 'bills/amount_you_lent', //get
   },
 };

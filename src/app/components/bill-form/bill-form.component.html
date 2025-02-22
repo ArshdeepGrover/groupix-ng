@@ -1,0 +1,83 @@
+<section>
+  <div class="heading border-color">
+    <h2 class="title">{{ data.title }}</h2>
+    <div (click)="close()" [innerHTML]="closeButton"></div>
+  </div>
+  <div class="container-body">
+    <div class="form">
+      <form method="post" [formGroup]="billForm">
+        <div class="mb-4">
+          <label
+            for="description"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Description</label
+          >
+          <input
+            type="text"
+            formControlName="description"
+            placeholder="Description"
+          />
+        </div>
+        <!-- amount -->
+        <div class="mb-4">
+          <label
+            for="amount"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Amount</label
+          >
+          <input type="number" formControlName="amount" placeholder="Amount" />
+        </div>
+
+        <!-- date -->
+        <div class="mb-4">
+          <label
+            for="date"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Date</label
+          >
+          <input
+            type="datetime-local"
+            formControlName="date"
+            placeholder="Amount"
+          />
+        </div>
+
+        <!-- payer_id -->
+        <div class="mb-4">
+          <label for="payer_id">Paid by</label>
+          <select
+            id="payer_id"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            formControlName="payer_id"
+          >
+            <option
+              *ngFor="let member of data.members"
+              [ngValue]="member.user.id"
+            >
+              {{ member.user.name }}
+              {{ member.user.id === data.currentUser.id ? "(You)" : "" }}
+            </option>
+          </select>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="action-button border-color">
+    <button
+      type="button"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      (click)="createExpense()"
+      [disabled]="!billForm.valid || billForm.get('amount')?.value === 0"
+      [ngClass]="{ disable: !billForm.valid || billForm.get('amount')?.value === 0 }"
+    >
+      {{ data.primary_button_text }}
+    </button>
+    <button
+      (click)="close()"
+      type="button"
+      class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+    >
+      Cancel
+    </button>
+  </div>
+</section>

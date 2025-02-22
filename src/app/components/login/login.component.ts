@@ -1,7 +1,4 @@
-import {
-  SocialAuthService,
-  SocialUser,
-} from '@abacritt/angularx-social-login';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -38,10 +35,7 @@ export class LoginComponent implements OnInit {
         this.loginProviderService.loginWithGoogle(this.googleUser);
       },
       (error) => {
-        console.log(
-          '🚀 ~ LoginComponent ~ this.socialAuthService.authState.subscribe ~ error:',
-          error
-        );
+        console.error(error);
       }
     );
 

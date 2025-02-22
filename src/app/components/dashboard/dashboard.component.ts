@@ -11,6 +11,10 @@ import { IGroup } from 'src/app/models/group.model';
 import { buttonsStore } from 'src/app/store/buttons.store';
 import { IPopup } from 'src/app/models/popup.model';
 import { GroupFormComponent } from 'src/app/components/group-form/group-form.component';
+import { BillFormComponent } from 'src/app/components/bill-form/bill-form.component';
+import { LoginProviderService } from 'src/app/services/login-provide.service';
+import { IUser } from 'src/app/models/user.model';
+import { BillsService } from 'src/app/services/bills.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,12 +30,15 @@ export class DashboardComponent implements OnInit {
   readonly dialog = inject(MatDialog);
   isLoading = true;
   isCreatingOrUpdatingGroup = false;
+  currentUser: IUser | null | undefined;
 
   constructor(
     private fb: FormBuilder,
     private groupService: GroupsService,
     private toastService: ToasterService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private loginProviderService: LoginProviderService,
+    private billService: BillsService
   ) {
     this.GroupForm = this.fb.group({
       name: ['', Validators.required],
@@ -46,6 +53,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loginProviderService.currentUser$.subscribe((data) => {
+      this.currentUser = data;
+    });
     this.getGroups();
   }
 
@@ -141,6 +151,35 @@ export class DashboardComponent implements OnInit {
       if (result && result.confirm) {
         this.isCreatingOrUpdatingGroup = true;
         this.deleteGroup(result.data.id, result.data.index);
+      }
+    });
+  }
+
+  openBillDialog(group: IGroup, index: number) {
+    const dialogRef = this.dialog.open(BillFormComponent, {
+      data: {
+        title: 'Add Expense in' + group.name,
+        id: group.id,
+        index: index,
+        currentUser: this.currentUser,
+        primary_button_text: 'Add Expense',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result: IPopup) => {
+      if (result && result.confirm) {
+        this.createExpense(
+          result.data.id,
+          result.data.index,
+          result.data.form_value
+        );
+      }
+    });
+  }
+
+  createExpense(groupId: number, index: number, formValue: any) {
+    this.billService.create(groupId, formValue).subscribe((data) => {
+      if (data) {
+        this.toastService.showToast(`Expense added!`, 'success');
       }
     });
   }

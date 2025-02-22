@@ -7,6 +7,12 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ProfileComponent } from 'src/app/components/profile/profile.component';
 import { HomepageComponent } from 'src/app/components/homepage/homepage.component';
+import { GroupComponent } from 'src/app/components/group/group.component';
+import { GroupDashboardComponent } from 'src/app/components/group/group-dashboard/group-dashboard.component';
+import { EditGroupComponent } from 'src/app/components/group/edit-group/edit-group.component';
+import { BillsComponent } from 'src/app/components/group/bills/bills.component';
+import { GroupMembersComponent } from 'src/app/components/group/group-members/group-members.component';
+import { GroupResolver } from 'src/app/resolvers/grooup.resolver';
 
 const routes: Routes = [
   {
@@ -35,6 +41,29 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+  },
+  {
+    path: 'group/:id',
+    component: GroupComponent,
+    resolve:{group: GroupResolver},
+    children: [
+      {
+        path: '',
+        component: GroupDashboardComponent,
+      },
+      {
+        path: 'edit',
+        component: EditGroupComponent,
+      },
+      {
+        path: 'bills',
+        component: BillsComponent,
+      },
+      {
+        path: 'members',
+        component: GroupMembersComponent,
+      },
+    ],
   },
   {
     path: 'profile',
