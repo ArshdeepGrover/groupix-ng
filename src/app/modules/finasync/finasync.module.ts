@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from './components/bank-accounts/form/form.component';
 import { AccountsTableComponent } from './components/bank-accounts/accounts-table/accounts-table.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ReactiveFormsModule,
     FormsModule,
     NgSelectModule,
+    FontAwesomeModule,
   ],
   declarations: [
     FinasyncDashboardComponent,
