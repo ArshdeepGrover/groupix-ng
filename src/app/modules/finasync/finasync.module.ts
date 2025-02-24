@@ -12,7 +12,7 @@ import { FormComponent } from './components/bank-accounts/form/form.component';
 import { AccountsTableComponent } from './components/bank-accounts/accounts-table/accounts-table.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SharedComponentsModule } from 'src/app/modules/shared-components/shared-components.module';
+import { SpinnerComponent } from 'src/app/standalone-components/spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -22,7 +22,9 @@ import { SharedComponentsModule } from 'src/app/modules/shared-components/shared
     FormsModule,
     NgSelectModule,
     FontAwesomeModule,
-    SharedComponentsModule,
+
+    // standalone
+    SpinnerComponent,
   ],
   declarations: [
     FinasyncDashboardComponent,
