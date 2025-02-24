@@ -12,6 +12,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 html,
 body {
   height: 100%;
@@ -33,4 +35,14 @@ body {
   @apply fill-[#1c2e45] dark:fill-white;
 }
 
-@import "~@ng-select/ng-select/themes/default.theme.css";
+.primary-button {
+  @apply focus:outline-none text-white bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:ring-primary-300 font-medium rounded text-sm px-5 py-2.5 mb-2 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-900;
+}
+
+.edit-button {
+  @apply focus:outline-none text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:ring-sky-300 font-medium rounded text-sm px-3 py-1 mb-2 dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-900;
+}
+
+.delete-button {
+  @apply bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded text-sm;
+}

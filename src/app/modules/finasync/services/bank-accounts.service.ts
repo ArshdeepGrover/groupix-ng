@@ -29,8 +29,8 @@ export class BankAccountsService extends BaseService {
     return this.http.get<any>(`${this.apiUrl}/${ROUTES.BANK_ACCOUNTS.INDEX}`);
   }
 
-  show(uuidId: string): Observable<any> {
-    const params = new HttpParams().set('uuid_id', uuidId);
+  show(uuid: string): Observable<any> {
+    const params = new HttpParams().set('uuid', uuid);
     return this.http.get<any>(`${this.apiUrl}/${ROUTES.BANK_ACCOUNTS.SHOW}`, {
       params,
     });
@@ -41,5 +41,15 @@ export class BankAccountsService extends BaseService {
       bank_account: formValues,
       uuid_id: uuidId,
     });
+  }
+
+  delete(uuid: string): Observable<boolean> {
+    const params = new HttpParams().set('uuid', uuid);
+    return this.http.delete<boolean>(
+      `${this.apiUrl}/${ROUTES.BANK_ACCOUNTS.DESTROY}`,
+      {
+        params,
+      }
+    );
   }
 }

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EBankAccountType } from 'src/app/models/bank-account.model';
+import { EBankAccountType } from 'src/app/modules/finasync/models/bank-account.model';
 import { IUser } from 'src/app/models/user.model';
 import { ToasterService } from 'src/app/modules/toast/toaster.service';
-import { BankAccountsService } from 'src/app/services/bank-accounts.service';
+import { BankAccountsService } from 'src/app/modules/finasync/services/bank-accounts.service';
 import { LoginProviderService } from 'src/app/services/login-provide.service';
-import { bank_names } from 'src/app/store/bank-names-list.store';
+import { bank_names } from 'src/app/modules/finasync/stores/bank-names-list.store';
 
 @Component({
   selector: 'app-form',

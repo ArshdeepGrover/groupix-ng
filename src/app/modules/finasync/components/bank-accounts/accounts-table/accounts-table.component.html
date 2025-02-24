@@ -1,39 +1,61 @@
-<h1>Bank Accounts</h1>
-<div class="table-section">
-  <div>
-    <table>
-      <thead>
-        <tr>
-          <th scope="col">Account Holder Name</th>
-          <th scope="col">Account Number</th>
-          <th scope="col">Account Type</th>
-          <th scope="col">IFSC Code</th>
-          <th scope="col">Balance</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let bankAccount of bankAccounts">
-          <th scope="row">{{ bankAccount.account_holder_name }}</th>
-          <td>{{ bankAccount.account_number }}</td>
-          <td>{{ bankAccount.account_type | titlecase }}</td>
-          <td>{{ bankAccount.ifsc_code }}</td>
-          <td>
+<div>
+  <h1 class="text-2xl font-bold mb-4">My Bank Accounts</h1>
+
+  <app-spinner *ngIf="loading; else bankAccountsData"></app-spinner>
+  <ng-template #bankAccountsData>
+    <div
+      *ngFor="let bankAccount of bankAccounts"
+      class="bg-white shadow-md rounded-lg p-4 mb-4"
+    >
+      <div class="flex justify-between items-center">
+        <div>
+          <h2 class="text-lg font-semibold">
+            {{ bankAccount.account_holder_name }}
+          </h2>
+          <p class="text-sm text-gray-600">
+            Account No: ****{{
+              bankAccount.account_number.toString().slice(-4)
+            }}
+          </p>
+          <p class="text-sm text-gray-600">
+            Account Type: {{ bankAccount.account_type | titlecase }}
+          </p>
+          <p class="text-sm text-gray-600">
+            IFSC Code: {{ bankAccount.ifsc_code }}
+          </p>
+          <p class="text-sm text-gray-600">
+            Balance:
             {{ bankAccount.balance | currency : bankAccount.currency : true }}
-          </td>
-          <td>
-            <button type="button" [routerLink]="['edit', bankAccount.uuid]">
-              Edit
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          </p>
+        </div>
+
+        <div class="space-x-2">
+          <button
+            *ngIf="!bankAccount.is_primary"
+            class="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded text-sm"
+            (click)="setPrimary(bankAccount.uuid)"
+          >
+            Set Primary
+          </button>
+
+          <button class="edit-button" [routerLink]="['edit', bankAccount.uuid]">
+            Edit
+          </button>
+
+          <button
+            class="delete-button"
+            (click)="deleteBankAccount(bankAccount.uuid)"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-6">
+      <button class="primary-button" [routerLink]="['new']">
+        Attach New Bank Account
+      </button>
+    </div>
+  </ng-template>
 </div>
-
-<br /><br />
-
-<a routerLink="new">
-  <button type="submit">Attach New Bank Account</button>
-</a>
