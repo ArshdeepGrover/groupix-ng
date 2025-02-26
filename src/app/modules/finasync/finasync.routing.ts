@@ -25,7 +25,7 @@ const routes: Routes = [
             path: 'new',
             component: FormComponent,
           },
-          { path: 'edit/:uuid_id', component: FormComponent },
+          { path: 'edit/:uuid', component: FormComponent },
         ],
       },
       {

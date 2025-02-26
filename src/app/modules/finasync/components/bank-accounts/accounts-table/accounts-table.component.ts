@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IBankAccountModel } from 'src/app/modules/finasync/models/bank-account.model';
 import { BankAccountsService } from 'src/app/modules/finasync/services/bank-accounts.service';
+import { ToasterService } from 'src/app/modules/toast/toaster.service';
 
 @Component({
   selector: 'app-accounts-table',
@@ -11,7 +12,10 @@ export class AccountsTableComponent implements OnInit {
   bankAccounts!: IBankAccountModel[];
   loading = true;
 
-  constructor(private bankAccountService: BankAccountsService) {}
+  constructor(
+    private bankAccountService: BankAccountsService,
+    private toasterService: ToasterService
+  ) {}
 
   ngOnInit() {
     this.fetchBankAccounts();
@@ -34,6 +38,7 @@ export class AccountsTableComponent implements OnInit {
     if (isConfirmed) {
       this.bankAccountService.delete(uuid).subscribe((response) => {
         if (response) {
+          this.toasterService.showToast('Bank account deleted successfully');
           this.bankAccounts = this.bankAccounts.filter(
             (account) => account.uuid !== uuid
           );

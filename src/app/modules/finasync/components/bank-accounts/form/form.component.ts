@@ -15,17 +15,18 @@ import { bank_names } from 'src/app/modules/finasync/stores/bank-names-list.stor
 })
 export class FormComponent {
   currentUser: IUser | null = null;
-  uuidId!: string;
+  uuid!: string;
   EBankAccountType = EBankAccountType;
   bankNames = bank_names;
   bankAccountForm = this.fb.group({
     account_holder_name: ['', Validators.required],
     account_nickname: ['', Validators.required],
     account_number: ['', Validators.required],
-    account_type: ['', Validators.required],
+    account_type: [EBankAccountType.SAVINGS, Validators.required],
     bank_name: ['', Validators.required],
     ifsc_code: ['', Validators.required],
     is_primary: [true, Validators.required],
+    balance: [0, Validators.required],
   });
 
   constructor(
@@ -44,8 +45,8 @@ export class FormComponent {
 
   getParams() {
     this.activatedRoute.params.subscribe((params) => {
-      this.uuidId = params['uuid_id'];
-      if (this.uuidId) {
+      this.uuid = params['uuid'];
+      if (this.uuid) {
         this.fetchBankAccount();
       }
     });
@@ -79,13 +80,13 @@ export class FormComponent {
 
   fetchBankAccount() {
     this.bankAccountService
-      .show(this.uuidId)
+      .show(this.uuid)
       .subscribe((response) => this.bankAccountForm.patchValue(response));
   }
 
   updateBankDetails() {
     this.bankAccountService
-      .updateBankAccount(this.uuidId, this.bankAccountForm.value)
+      .updateBankAccount(this.uuid, this.bankAccountForm.value)
       .subscribe((response) => {
         if (response) {
           this.toastService.showToast(

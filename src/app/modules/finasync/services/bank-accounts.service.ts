@@ -36,10 +36,10 @@ export class BankAccountsService extends BaseService {
     });
   }
 
-  updateBankAccount(uuidId: string, formValues: any): Observable<any> {
+  updateBankAccount(uuid: string, formValues: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${ROUTES.BANK_ACCOUNTS.UPDATE}`, {
       bank_account: formValues,
-      uuid_id: uuidId,
+      uuid: uuid,
     });
   }
 
