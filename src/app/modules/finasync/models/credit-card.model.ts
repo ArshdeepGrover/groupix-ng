@@ -14,3 +14,9 @@ export interface ICreditCard {
   created_at?: string;
   updated_at?: string;
 }
+
+export enum ECardType {
+  VISA = 'visa',
+  MASTERCARD = 'mastercard',
+  AMEX = 'amex',
+}

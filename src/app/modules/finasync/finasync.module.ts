@@ -13,6 +13,8 @@ import { AccountsTableComponent } from './components/bank-accounts/accounts-tabl
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SpinnerComponent } from 'src/app/standalone-components/spinner/spinner.component';
+import { CreditCardListComponent } from './components/credit-cards/credit-card-list/credit-card-list.component';
+import { CreditCardFormComponent } from 'src/app/modules/finasync/components/credit-cards/credit-card-form/credit-card-form.component';
 
 @NgModule({
   imports: [
@@ -35,6 +37,8 @@ import { SpinnerComponent } from 'src/app/standalone-components/spinner/spinner.
     CategoriesComponent,
     FormComponent,
     AccountsTableComponent,
+    CreditCardListComponent,
+    CreditCardFormComponent,
   ],
 })
 export class FinasyncModule {}

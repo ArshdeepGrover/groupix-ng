@@ -35,8 +35,8 @@ export class CreditCardService extends BaseService {
   }
 
   // 🔍 Get specific credit card by UUID
-  show(uuidId: string): Observable<any> {
-    const params = new HttpParams().set('uuid', uuidId);
+  show(uuid: string): Observable<any> {
+    const params = new HttpParams().set('uuid', uuid);
     return this.http.get<any>(`${this.apiUrl}/${ROUTES.CREDIT_CARDS.SHOW}`, {
       params,
     });
