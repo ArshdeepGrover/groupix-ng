@@ -55,4 +55,11 @@ export const ROUTES = {
     DESTROY: 'credit_cards',
     SET_PRIMARY: 'credit_cards/set_primary',
   },
+
+  CATEGORIES: {
+    INDEX: 'categories',
+    CREATE: 'categories',
+    UPDATE: 'categories',
+    DESTROY: 'categories',
+  },
 };

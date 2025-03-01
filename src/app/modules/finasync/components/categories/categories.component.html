@@ -1,1 +1,34 @@
-<p>categories works!</p>
+<div class="p-4">
+  <h2 class="text-xl font-bold mb-4">Manage Categories</h2>
+
+  <div class="mb-4">
+    <input
+      [(ngModel)]="newCategory.name"
+      placeholder="Category Name"
+      class="border p-2 mr-2"
+    />
+    <button
+      (click)="addCategory()"
+      class="bg-blue-500 text-white px-4 py-2 rounded"
+    >
+      Add
+    </button>
+  </div>
+
+  <ul>
+    <li
+      *ngFor="let category of categories"
+      class="p-2 border-b flex justify-between"
+    >
+      <span>{{ category.name }}</span>
+      <div>
+        <!-- <button (click)="updateCategory(category)" class="text-green-500 mr-2">
+          Edit
+        </button> -->
+        <button (click)="deleteCategory(category)" class="text-red-500">
+          Delete
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>
