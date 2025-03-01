@@ -13,9 +13,7 @@
             {{ bankAccount.account_holder_name }}
           </h2>
           <p class="text-sm text-gray-600">
-            Account No: ****{{
-              bankAccount.account_number.toString().slice(-4)
-            }}
+            Account No: {{ bankAccount.masked_account_number }}
           </p>
           <p class="text-sm text-gray-600">
             Account Type: {{ bankAccount.account_type | titlecase }}

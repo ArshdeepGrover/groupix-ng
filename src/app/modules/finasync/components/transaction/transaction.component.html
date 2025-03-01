@@ -25,6 +25,7 @@
         class="border p-2 rounded w-full"
       />
       <select formControlName="status" class="border p-2 rounded w-full">
+        <option value="" selected disable>Select status</option>
         <option
           *ngFor="let status of ETransactionStatus | keyvalue"
           [value]="status.value"
@@ -41,6 +42,7 @@
         formControlName="payment_method"
         class="border p-2 rounded w-full"
       >
+        <option value="" selected disable>Select Method</option>
         <option
           *ngFor="let method of EPaymentMethod | keyvalue"
           [value]="method.value"
@@ -54,6 +56,7 @@
         class="border p-2 rounded w-full"
       />
       <select formControlName="category_id" class="border p-2 rounded w-full">
+        <option value="" selected disable>Select Category</option>
         <option *ngFor="let category of categories" [value]="category.id">
           {{ category.name }}
         </option>
@@ -62,6 +65,7 @@
         formControlName="bank_account_id"
         class="border p-2 rounded w-full"
       >
+        <option value="" selected disable>Select Account</option>
         <option *ngFor="let account of bankAccounts" [value]="account.id">
           {{ account.account_nickname }} - {{ account.masked_account_number }}
         </option>
