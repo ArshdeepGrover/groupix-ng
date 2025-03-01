@@ -32,6 +32,7 @@ export const ROUTES = {
 
   BANK_ACCOUNTS: {
     INDEX: 'bank_accounts',
+    MINI_INDEX: 'bank_accounts/mini_index',
     SHOW: 'bank_accounts/show',
     CREATE: 'bank_accounts',
     DESTROY: 'bank_accounts',
@@ -58,8 +59,17 @@ export const ROUTES = {
 
   CATEGORIES: {
     INDEX: 'categories',
+    MINI_INDEX: 'categories/mini_index',
     CREATE: 'categories',
     UPDATE: 'categories',
     DESTROY: 'categories',
+  },
+
+  TRANSACTION: {
+    INDEX: 'transactions',
+    SHOW: 'transactions/show',
+    CREATE: 'transactions',
+    DESTROY: 'transactions',
+    UPDATE: 'transactions',
   },
 };

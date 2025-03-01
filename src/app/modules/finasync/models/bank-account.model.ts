@@ -1,4 +1,4 @@
-export interface IBankAccountModel {
+export interface IBankAccount {
   id: number;
   account_number: number;
   account_holder_name: string;
@@ -14,6 +14,7 @@ export interface IBankAccountModel {
   created_at: Date;
   updated_at: Date;
   uuid: string;
+  masked_account_number: number;
 }
 
 export enum EBankAccountStatus {

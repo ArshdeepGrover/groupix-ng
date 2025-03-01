@@ -15,6 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SpinnerComponent } from 'src/app/standalone-components/spinner/spinner.component';
 import { CreditCardListComponent } from './components/credit-cards/credit-card-list/credit-card-list.component';
 import { CreditCardFormComponent } from 'src/app/modules/finasync/components/credit-cards/credit-card-form/credit-card-form.component';
+import { TransactionComponent } from './components/transaction/transaction.component';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { CreditCardFormComponent } from 'src/app/modules/finasync/components/cre
     AccountsTableComponent,
     CreditCardListComponent,
     CreditCardFormComponent,
+    TransactionComponent,
   ],
 })
 export class FinasyncModule {}

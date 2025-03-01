@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BaseService } from 'src/app/services/base.service';
 import { ROUTES } from 'src/app/apiRoutes/api';
+import { IBankAccount } from 'src/app/modules/finasync/models/bank-account.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,12 @@ export class BankAccountsService extends BaseService {
 
   index(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${ROUTES.BANK_ACCOUNTS.INDEX}`);
+  }
+
+  miniIndex(): Observable<IBankAccount[]> {
+    return this.http.get<IBankAccount[]>(
+      `${this.apiUrl}/${ROUTES.BANK_ACCOUNTS.MINI_INDEX}`
+    );
   }
 
   show(uuid: string): Observable<any> {

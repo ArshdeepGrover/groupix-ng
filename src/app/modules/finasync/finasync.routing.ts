@@ -9,6 +9,7 @@ import { FormComponent } from 'src/app/modules/finasync/components/bank-accounts
 import { AccountsTableComponent } from 'src/app/modules/finasync/components/bank-accounts/accounts-table/accounts-table.component';
 import { CreditCardListComponent } from 'src/app/modules/finasync/components/credit-cards/credit-card-list/credit-card-list.component';
 import { CreditCardFormComponent } from 'src/app/modules/finasync/components/credit-cards/credit-card-form/credit-card-form.component';
+import { TransactionComponent } from 'src/app/modules/finasync/components/transaction/transaction.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
           },
           { path: 'edit/:uuid', component: FormComponent },
         ],
+      },
+      {
+        path: 'transactions',
+        component: TransactionComponent,
       },
       {
         path: 'credit-cards',

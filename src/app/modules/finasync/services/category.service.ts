@@ -26,6 +26,12 @@ export class CategoryService extends BaseService {
     return this.http.get<any>(`${this.apiUrl}/${ROUTES.CATEGORIES.INDEX}`);
   }
 
+  miniIndex(): Observable<ICategory[]> {
+    return this.http.get<ICategory[]>(
+      `${this.apiUrl}/${ROUTES.CATEGORIES.MINI_INDEX}`
+    );
+  }
+
   update(categoryId: number, formValues: any): Observable<ICategory> {
     return this.http.put<ICategory>(
       `${this.apiUrl}/${ROUTES.CATEGORIES.UPDATE}`,

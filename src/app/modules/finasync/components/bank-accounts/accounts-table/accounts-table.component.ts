@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IBankAccountModel } from 'src/app/modules/finasync/models/bank-account.model';
+import { IBankAccount } from 'src/app/modules/finasync/models/bank-account.model';
 import { BankAccountsService } from 'src/app/modules/finasync/services/bank-accounts.service';
 import { ToasterService } from 'src/app/modules/toast/toaster.service';
 
@@ -9,7 +9,7 @@ import { ToasterService } from 'src/app/modules/toast/toaster.service';
   styleUrls: ['./accounts-table.component.scss'],
 })
 export class AccountsTableComponent implements OnInit {
-  bankAccounts!: IBankAccountModel[];
+  bankAccounts!: IBankAccount[];
   loading = true;
 
   constructor(
