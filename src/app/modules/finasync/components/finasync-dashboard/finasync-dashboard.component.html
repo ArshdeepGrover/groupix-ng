@@ -20,54 +20,54 @@
     ></path>
   </svg>
 </button>
-
-<aside id="default-sidebar" aria-label="Sidebar">
-  <div class="aside-container">
-    <ul>
-      <li>
-        <a
-          routerLink="."
-          routerLinkActive="active-route"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <div class="icon" [innerHTML]="plusIcon"></div>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="transactions" routerLinkActive="active-route">
-          <div class="icon" [innerHTML]="plusIcon"></div>
-          <span>Transactions</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="bank-accounts" routerLinkActive="active-route">
-          <div class="icon" [innerHTML]="plusIcon"></div>
-          <span>Bank Accounts</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="credit-cards" routerLinkActive="active-route">
-          <div class="icon" [innerHTML]="plusIcon"></div>
-          <span>Credit Cards</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="graphs" routerLinkActive="active-route">
-          <fa-icon [icon]="icons.faChartArea"></fa-icon>
-          <span>Graphs</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="categories" routerLinkActive="active-route">
-          <div class="icon" [innerHTML]="plusIcon"></div>
-          <span>Categories</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-</aside>
-
+<div class="w-64">
+  <aside id="default-sidebar" aria-label="Sidebar">
+    <div class="aside-container">
+      <ul>
+        <li>
+          <a
+            routerLink="."
+            routerLinkActive="active-route"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <div class="icon" [innerHTML]="plusIcon"></div>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="transactions" routerLinkActive="active-route">
+            <div class="icon" [innerHTML]="plusIcon"></div>
+            <span>Transactions</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="bank-accounts" routerLinkActive="active-route">
+            <div class="icon" [innerHTML]="plusIcon"></div>
+            <span>Bank Accounts</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="credit-cards" routerLinkActive="active-route">
+            <div class="icon" [innerHTML]="plusIcon"></div>
+            <span>Credit Cards</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="graphs" routerLinkActive="active-route">
+            <fa-icon [icon]="icons.faChartArea"></fa-icon>
+            <span>Graphs</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="categories" routerLinkActive="active-route">
+            <div class="icon" [innerHTML]="plusIcon"></div>
+            <span>Categories</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+</div>
 <div class="right-column">
   <div class="container">
     <router-outlet></router-outlet>
