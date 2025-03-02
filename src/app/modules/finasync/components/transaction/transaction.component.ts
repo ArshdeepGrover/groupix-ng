@@ -27,6 +27,23 @@ export class TransactionComponent {
   EPaymentMethod = EPaymentMethod;
   ETransactionType = ETransactionType;
 
+  currentYear: number = new Date().getFullYear();
+  days: number[] = Array.from({ length: 31 }, (_, i) => i + 1);
+  months = [
+    { name: 'Jan', value: 1 },
+    { name: 'Feb', value: 2 },
+    { name: 'Mar', value: 3 },
+    { name: 'Apr', value: 4 },
+    { name: 'May', value: 5 },
+    { name: 'Jun', value: 6 },
+    { name: 'Jul', value: 7 },
+    { name: 'Aug', value: 8 },
+    { name: 'Sep', value: 9 },
+    { name: 'Oct', value: 10 },
+    { name: 'Nov', value: 11 },
+    { name: 'Dec', value: 12 },
+  ];
+
   constructor(
     private transactionService: TransactionService,
     private bankAccount: BankAccountsService,
@@ -36,9 +53,9 @@ export class TransactionComponent {
     this.transactionForm = this.fb.group({
       amount: ['', Validators.required],
       transaction_type: ['', Validators.required],
-      transaction_date: ['', Validators.required],
+      day: [new Date().getDate(), Validators.required],
+      month: [new Date().getMonth() + 1, Validators.required],
       status: [ETransactionStatus.COMPLETED, Validators.required],
-      reference_number: [''],
       payment_method: ['', Validators.required],
       description: ['', Validators.required],
       category_id: ['', Validators.required],
@@ -63,6 +80,7 @@ export class TransactionComponent {
       this.bankAccounts = data;
     });
   }
+
   loadCategories() {
     this.categoryService.miniIndex().subscribe((data) => {
       this.categories = data;
@@ -70,10 +88,23 @@ export class TransactionComponent {
   }
 
   addTransaction() {
-    this.transactionService.create(this.transactionForm.value).subscribe(() => {
-      this.loadTransactions();
-      this.newTransaction = {};
+    const selectedDate = this.getFormattedDate();
+
+    const transactionData = {
+      ...this.transactionForm.value,
+      transaction_date: selectedDate, // Use formatted date
+    };
+
+    this.transactionService.create(transactionData).subscribe(() => {
+      this.resetTransactionForm();
     });
+  }
+
+  getFormattedDate(): string {
+    const { day, month } = this.transactionForm.value;
+    return `${this.currentYear}-${String(month).padStart(2, '0')}-${String(
+      day
+    ).padStart(2, '0')}`;
   }
 
   updateTransaction(transaction: ITransaction) {
@@ -91,5 +122,19 @@ export class TransactionComponent {
         .delete(id)
         .subscribe(() => this.loadTransactions());
     }
+  }
+
+  resetTransactionForm() {
+    this.transactionForm.patchValue({
+      amount: '',
+      transaction_type: '',
+      day: new Date().getDate(),
+      month: new Date().getMonth() + 1,
+      status: ETransactionStatus.COMPLETED,
+      payment_method: '',
+      description: '',
+      category_id: '',
+      bank_account_id: '',
+    });
   }
 }

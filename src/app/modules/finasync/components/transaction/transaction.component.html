@@ -1,95 +1,166 @@
-<form [formGroup]="transactionForm" (ngSubmit)="addTransaction()" class="mb-6">
-  <div class="grid grid-cols-6 gap-2">
-    <input
-      formControlName="amount"
-      placeholder="Amount"
-      class="border p-2 rounded w-full"
-    />
+<form [formGroup]="transactionForm" (ngSubmit)="addTransaction()">
+  <div class="form-container">
+    <div class="select-wrapper">
+      <label for="underline_select" class="sr-only">Underline select</label>
+      <select
+        id="underline_select"
+        formControlName="category_id"
+        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+      >
+        <option value="" selected disable>Select Category</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
 
-    <select
-      formControlName="transaction_type"
-      class="border p-2 rounded w-full"
+    <div class="input-wrapper">
+      <div class="relative z-0">
+        <input
+          type="number"
+          id="floating_standard"
+          formControlName="amount"
+          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=" "
+        />
+        <label
+          for="floating_standard"
+          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+          >Enter Amount</label
+        >
+      </div>
+    </div>
+
+    <div class="select-wrapper">
+      <label for="underline_select" class="sr-only">Underline select</label>
+      <select
+        id="underline_select"
+        formControlName="transaction_type"
+        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+      >
+        <option value="" selected disable>Select Category</option>
+        <option
+          *ngFor="let type of ETransactionType | keyvalue"
+          [value]="type.value"
+        >
+          {{ type.value | titlecase }}
+        </option>
+      </select>
+    </div>
+
+    <!-- <div class="date-wrapper">
+      <input
+        formControlName="transaction_date"
+        type="date"
+        class="border border-black p-2 rounded w-full"
+      />
+    </div> -->
+
+    <div class="date-wrapper flex gap-1">
+      <!-- Day Selector -->
+      <select formControlName="day" class="border border-black p-2 rounded">
+        <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+      </select>
+
+      <!-- Month Selector -->
+      <select formControlName="month" class="border border-black p-2 rounded">
+        <option *ngFor="let month of months" [value]="month.value">
+          {{ month.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="select-wrapper">
+      <label for="underline_select" class="sr-only">Underline select</label>
+      <select
+        id="underline_select"
+        formControlName="payment_method"
+        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+      >
+        <option value="" selected disable>Select Method</option>
+        <option
+          *ngFor="let method of EPaymentMethod | keyvalue"
+          [value]="method.value"
+        >
+          {{ method.value | removeUnderScoreAndTitleCase }}
+        </option>
+      </select>
+    </div>
+
+    <div class="input-wrapper">
+      <div class="relative z-0">
+        <input
+          type="text"
+          id="description"
+          formControlName="description"
+          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder="Description"
+        />
+      </div>
+    </div>
+
+    <div class="select-wrapper">
+      <label for="bank_account_id" class="sr-only">Underline select</label>
+      <select
+        id="bank_account_id"
+        formControlName="bank_account_id"
+        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+      >
+        <option value="" selected disable>Select Account</option>
+        <option *ngFor="let account of bankAccounts" [value]="account.id">
+          {{ account.account_nickname }} - {{ account.masked_account_number }}
+        </option>
+      </select>
+    </div>
+    <button
+      type="button"
+      class="submit-button"
+      [ngClass]="{ disable: !transactionForm.valid }"
+      [disabled]="!transactionForm.valid"
+      (click)="addTransaction()"
     >
-      <option value="" selected disable>Select type</option>
-      <option value="credit">Credit</option>
-      <option value="debit">Debit</option>
-    </select>
-    <input
-      formControlName="transaction_date"
-      type="date"
-      class="border p-2 rounded w-full"
-    />
-    <!-- <select formControlName="status" class="border p-2 rounded w-full">
-      <option value="" selected disable>Select status</option>
-      <option
-        *ngFor="let status of ETransactionStatus | keyvalue"
-        [value]="status.value"
-      >
-        {{ status.value | titlecase }}
-      </option>
-    </select> -->
-    <!-- <input
-      formControlName="reference_number"
-      placeholder="Reference Number"
-      class="border p-2 rounded w-full"
-    /> -->
-    <select formControlName="payment_method" class="border p-2 rounded w-full">
-      <option value="" selected disable>Select Method</option>
-      <option
-        *ngFor="let method of EPaymentMethod | keyvalue"
-        [value]="method.value"
-      >
-        {{ method.value | removeUnderScoreAndTitleCase }}
-      </option>
-    </select>
-    <input
-      formControlName="description"
-      placeholder="Description"
-      class="border p-2 rounded w-full"
-    />
-    <select formControlName="category_id" class="border p-2 rounded w-full">
-      <option value="" selected disable>Select Category</option>
-      <option *ngFor="let category of categories" [value]="category.id">
-        {{ category.name }}
-      </option>
-    </select>
-    <select formControlName="bank_account_id" class="border p-2 rounded w-full">
-      <option value="" selected disable>Select Account</option>
-      <option *ngFor="let account of bankAccounts" [value]="account.id">
-        {{ account.account_nickname }} - {{ account.masked_account_number }}
-      </option>
-    </select>
+      Add Transaction
+    </button>
   </div>
-  <button
-    type="submit"
-    class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full"
-    [disabled]="!transactionForm.valid"
-  >
-    Add Transaction
-  </button>
 </form>
 
-<ul class="divide-y divide-gray-200">
-  <li
-    *ngFor="let transaction of transactions"
-    class="p-4 flex justify-between items-center"
-  >
-    <span class="text-gray-700"
-      >{{ transaction.amount }} - {{ transaction.transaction_type }}</span
-    >
-    <div>
-      <button
-        (click)="updateTransaction(transaction)"
-        class="text-green-500 hover:underline mr-2"
-      >
-        Edit
-      </button>
-      <button
-        (click)="deleteTransaction(transaction.id)"
-        class="text-red-500 hover:underline"
-      >
-        Delete
-      </button>
-    </div>
-  </li>
-</ul>
+<div class="overflow-x-auto p-4">
+  <table class="w-full border border-black">
+    <thead>
+      <tr class="bg-black text-white text-left">
+        <th class="border border-black p-2">Source</th>
+        <th class="border border-black p-2">Resource</th>
+        <th class="border border-black p-2">Date</th>
+        <th class="border border-black p-2">Amount</th>
+        <th class="border border-black p-2">Bank Name</th>
+        <th class="border border-black p-2">Vineet</th>
+        <th class="border border-black p-2">OTHER</th>
+        <th class="border border-black p-2">Personal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions" class="border border-black">
+        <td class="border border-black p-2 font-semibold">
+          {{ transaction.category_id }}
+        </td>
+        <td class="border border-black p-2">{{ transaction.description }}</td>
+        <td class="border border-black p-2">
+          {{ transaction.transaction_date | date : "d-MMM-yyyy" }}
+        </td>
+        <td class="border border-black p-2">
+          ₹{{ transaction.amount | number : "1.2-2" }}
+        </td>
+        <td class="border border-black p-2">
+          {{ transaction.bank_account_id }}
+        </td>
+        <td class="border border-black p-2">₹{{ transaction.amount }}</td>
+        <td class="border border-black p-2">
+          ₹{{ transaction.transaction_type }}
+        </td>
+        <td class="border border-black p-2">
+          <!-- ₹{{ transaction.personal | number : "1.2-2" }} -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
