@@ -37,7 +37,7 @@ export class TransactionComponent {
       amount: ['', Validators.required],
       transaction_type: ['', Validators.required],
       transaction_date: ['', Validators.required],
-      status: ['', Validators.required],
+      status: [ETransactionStatus.COMPLETED, Validators.required],
       reference_number: [''],
       payment_method: ['', Validators.required],
       description: ['', Validators.required],

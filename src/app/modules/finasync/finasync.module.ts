@@ -16,6 +16,7 @@ import { SpinnerComponent } from 'src/app/standalone-components/spinner/spinner.
 import { CreditCardListComponent } from './components/credit-cards/credit-card-list/credit-card-list.component';
 import { CreditCardFormComponent } from 'src/app/modules/finasync/components/credit-cards/credit-card-form/credit-card-form.component';
 import { TransactionComponent } from './components/transaction/transaction.component';
+import { PipesModule } from 'src/app/modules/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { TransactionComponent } from './components/transaction/transaction.compo
 
     // standalone
     SpinnerComponent,
+    PipesModule,
   ],
   declarations: [
     FinasyncDashboardComponent,
