@@ -27,6 +27,7 @@ export class FormComponent {
     ifsc_code: ['', Validators.required],
     is_primary: [true, Validators.required],
     balance: [0, Validators.required],
+    note: [''],
   });
 
   constructor(
