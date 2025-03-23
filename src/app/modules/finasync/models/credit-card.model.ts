@@ -19,4 +19,5 @@ export enum ECardType {
   VISA = 'visa',
   MASTERCARD = 'mastercard',
   AMEX = 'amex',
+  RUPAY = 'RuPay',
 }

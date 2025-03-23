@@ -1,34 +1,38 @@
-<div class="p-4">
-  <h2 class="text-xl font-bold mb-4">Manage Categories</h2>
+<div class="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6 dark:bg-gray-900">
+  <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
+    Manage Categories
+  </h2>
 
-  <div class="mb-4">
+  <!-- Add Category -->
+  <div class="flex items-center gap-2 mb-4">
     <input
       [(ngModel)]="newCategory.name"
-      placeholder="Category Name"
-      class="border p-2 mr-2"
+      placeholder="Enter category name"
+      class="flex-grow border border-gray-300 p-2 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none dark:bg-gray-800 dark:text-white"
     />
     <button
       (click)="addCategory()"
-      class="bg-blue-500 text-white px-4 py-2 rounded"
+      class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition duration-200 shadow-md"
     >
       Add
     </button>
   </div>
 
-  <ul>
+  <!-- Categories List -->
+  <ul class="space-y-3">
     <li
       *ngFor="let category of categories"
-      class="p-2 border-b flex justify-between"
+      class="flex items-center justify-between bg-gray-100 dark:bg-gray-800 p-3 rounded-lg shadow-sm transition duration-200"
     >
-      <span>{{ category.name }}</span>
-      <div>
-        <!-- <button (click)="updateCategory(category)" class="text-green-500 mr-2">
-          Edit
-        </button> -->
-        <button (click)="deleteCategory(category)" class="text-red-500">
-          Delete
-        </button>
-      </div>
+      <span class="text-gray-800 dark:text-white font-medium">{{
+        category.name
+      }}</span>
+      <button
+        (click)="deleteCategory(category)"
+        class="text-red-600 hover:text-red-700 font-semibold transition duration-200"
+      >
+        Delete
+      </button>
     </li>
   </ul>
 </div>

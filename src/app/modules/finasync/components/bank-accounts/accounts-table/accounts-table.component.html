@@ -1,58 +1,73 @@
-<div>
-  <h1 class="text-2xl font-bold mb-4">My Bank Accounts</h1>
+<div class="max-w-2xl mx-auto p-6 bg-gray-50 dark:bg-gray-900 rounded-lg shadow-lg">
+  <h1 class="text-3xl font-bold mb-6 text-gray-800 dark:text-white text-center">
+    My Bank Accounts
+  </h1>
 
   <app-spinner *ngIf="loading; else bankAccountsData"></app-spinner>
+  
   <ng-template #bankAccountsData>
     <div
       *ngFor="let bankAccount of bankAccounts"
-      class="bg-white shadow-md rounded-lg p-4 mb-4"
+      class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 mb-5 border border-gray-200 dark:border-gray-700 transition duration-300 hover:shadow-lg"
     >
       <div class="flex justify-between items-center">
+        <!-- Account Info -->
         <div>
-          <h2 class="text-lg font-semibold">
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
             {{ bankAccount.account_holder_name }}
           </h2>
-          <p class="text-sm text-gray-600">
-            Account No: {{ bankAccount.masked_account_number }}
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            <span class="font-medium">Account No:</span> 
+            {{ bankAccount.masked_account_number }}
           </p>
-          <p class="text-sm text-gray-600">
-            Account Type: {{ bankAccount.account_type | titlecase }}
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            <span class="font-medium">Account Type:</span> 
+            {{ bankAccount.account_type | titlecase }}
           </p>
-          <p class="text-sm text-gray-600">
-            IFSC Code: {{ bankAccount.ifsc_code }}
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            <span class="font-medium">IFSC Code:</span> 
+            {{ bankAccount.ifsc_code }}
           </p>
-          <p class="text-sm text-gray-600">
-            Balance:
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            <span class="font-medium">Balance:</span> 
             {{ bankAccount.balance | currency : bankAccount.currency : true }}
           </p>
         </div>
 
-        <div class="space-x-2">
+        <!-- Action Buttons -->
+        <div class="flex gap-2">
           <button
             *ngIf="!bankAccount.is_primary"
-            class="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded text-sm"
+            class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition"
             (click)="setPrimary(bankAccount.uuid)"
           >
-            Set Primary
-          </button>
-
-          <button class="edit-button" [routerLink]="['edit', bankAccount.uuid]">
-            Edit
+            <fa-icon [icon]="['fas', 'star']"></fa-icon> Set Primary
           </button>
 
           <button
-            class="delete-button"
+            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition"
+            [routerLink]="['edit', bankAccount.uuid]"
+          >
+            <fa-icon [icon]="['fas', 'edit']"></fa-icon> Edit
+          </button>
+
+          <button
+            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition"
             (click)="deleteBankAccount(bankAccount.uuid)"
           >
-            Delete
+            <fa-icon [icon]="['fas', 'trash']"></fa-icon> Delete
           </button>
         </div>
       </div>
     </div>
 
+    <!-- Attach New Bank Account -->
     <div class="text-center mt-6">
-      <button class="primary-button" [routerLink]="['new']">
-        Attach New Bank Account
+      <button
+        class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg transition text-lg shadow-md"
+        [routerLink]="['new']"
+      >
+        + Attach New Bank Account
       </button>
     </div>
   </ng-template>

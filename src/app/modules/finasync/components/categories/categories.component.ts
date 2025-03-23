@@ -22,9 +22,9 @@ export class CategoriesComponent {
   }
 
   addCategory() {
-    this.categoryService.create(this.newCategory).subscribe(() => {
-      this.loadCategories();
+    this.categoryService.create(this.newCategory).subscribe((data) => {
       this.newCategory = {};
+      this.categories.unshift(data);
     });
   }
 

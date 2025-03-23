@@ -5,7 +5,7 @@ export interface ITransaction {
   transaction_date: string;
   status: string;
   reference_number?: string;
-  payment_method?: string;
+  payment_method: string;
   description?: string;
   bank_account_id: number;
   category_id?: number;
@@ -25,8 +25,8 @@ export enum ETransactionStatus {
 export enum EPaymentMethod {
   UPI = 'UPI',
   CREDIT_CARD = 'credit_card',
-  DEBIT_CARD = 'debit_card',
+  // DEBIT_CARD = 'debit_card',
   NET_BANKING = 'net_banking',
-  WALLET = 'wallet',
-  OTHER = 'other',
+  // WALLET = 'wallet',
+  // OTHER = 'other',
 }

@@ -21,7 +21,6 @@ export class TransactionComponent {
   transactions: ITransaction[] = [];
   bankAccounts: IBankAccount[] = [];
   categories: ICategory[] = [];
-  newTransaction: Partial<ITransaction> = {};
   transactionForm!: FormGroup;
   ETransactionStatus = ETransactionStatus;
   EPaymentMethod = EPaymentMethod;
@@ -52,11 +51,11 @@ export class TransactionComponent {
   ) {
     this.transactionForm = this.fb.group({
       amount: ['', Validators.required],
-      transaction_type: ['', Validators.required],
+      transaction_type: [ETransactionType.CREDIT, Validators.required],
       day: [new Date().getDate(), Validators.required],
       month: [new Date().getMonth() + 1, Validators.required],
       status: [ETransactionStatus.COMPLETED, Validators.required],
-      payment_method: ['', Validators.required],
+      payment_method: [EPaymentMethod.UPI, Validators.required],
       description: ['', Validators.required],
       category_id: ['', Validators.required],
       bank_account_id: ['', Validators.required],
@@ -127,11 +126,11 @@ export class TransactionComponent {
   resetTransactionForm() {
     this.transactionForm.patchValue({
       amount: '',
-      transaction_type: '',
+      transaction_type: ETransactionType.CREDIT,
       day: new Date().getDate(),
       month: new Date().getMonth() + 1,
       status: ETransactionStatus.COMPLETED,
-      payment_method: '',
+      payment_method: EPaymentMethod.UPI,
       description: '',
       category_id: '',
       bank_account_id: '',

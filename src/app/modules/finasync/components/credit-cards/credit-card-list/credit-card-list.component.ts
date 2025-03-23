@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ICreditCard } from 'src/app/modules/finasync/models/credit-card.model';
 import { CreditCardService } from 'src/app/modules/finasync/services/credit-card.service';
 import { ToasterService } from 'src/app/modules/toast/toaster.service';
-
+import { faTrash, faStar, faEdit } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-credit-card-list',
   templateUrl: './credit-card-list.component.html',
@@ -11,6 +11,11 @@ import { ToasterService } from 'src/app/modules/toast/toaster.service';
 export class CreditCardListComponent {
   creditCards: ICreditCard[] = [];
   loading = true;
+  icons = {
+    faTrash,
+    faStar,
+    faEdit,
+  };
   constructor(
     private creditCardService: CreditCardService,
     private toastrService: ToasterService

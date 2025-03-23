@@ -1,44 +1,42 @@
-<form [formGroup]="transactionForm" (ngSubmit)="addTransaction()">
-  <div class="form-container">
-    <div class="select-wrapper">
-      <label for="underline_select" class="sr-only">Underline select</label>
-      <select
-        id="underline_select"
-        formControlName="category_id"
-        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
-      >
-        <option value="" selected disable>Select Category</option>
+<div class="max-w-5xl mx-auto p-6">
+  <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+    💰 Add Transaction
+  </h2>
+
+  <form
+    [formGroup]="transactionForm"
+    (ngSubmit)="addTransaction()"
+    class="flex flex-wrap items-center gap-3 p-4 border rounded shadow-md bg-white"
+  >
+    <!-- Category -->
+    <div class="w-1/6">
+      <label class="text-sm font-medium">Category</label>
+      <select formControlName="category_id" class="w-full p-2 border rounded">
+        <option value="" disabled selected>Choose</option>
         <option *ngFor="let category of categories" [value]="category.id">
           {{ category.name }}
         </option>
       </select>
     </div>
 
-    <div class="input-wrapper">
-      <div class="relative z-0">
-        <input
-          type="number"
-          id="floating_standard"
-          formControlName="amount"
-          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          placeholder=" "
-        />
-        <label
-          for="floating_standard"
-          class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
-          >Enter Amount</label
-        >
-      </div>
+    <!-- Amount -->
+    <div class="w-1/6">
+      <label class="text-sm font-medium">Amount</label>
+      <input
+        type="number"
+        formControlName="amount"
+        class="w-full p-2 border rounded"
+        placeholder="₹"
+      />
     </div>
 
-    <div class="select-wrapper">
-      <label for="underline_select" class="sr-only">Underline select</label>
+    <!-- Transaction Type -->
+    <div class="w-1/6">
+      <label class="text-sm font-medium">Type</label>
       <select
-        id="underline_select"
         formControlName="transaction_type"
-        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+        class="w-full p-2 border rounded"
       >
-        <option value="" selected disable>Select Category</option>
         <option
           *ngFor="let type of ETransactionType | keyvalue"
           [value]="type.value"
@@ -48,36 +46,29 @@
       </select>
     </div>
 
-    <!-- <div class="date-wrapper">
-      <input
-        formControlName="transaction_date"
-        type="date"
-        class="border border-black p-2 rounded w-full"
-      />
-    </div> -->
-
-    <div class="date-wrapper flex gap-1">
-      <!-- Day Selector -->
-      <select formControlName="day" class="border border-black p-2 rounded">
-        <option *ngFor="let day of days" [value]="day">{{ day }}</option>
-      </select>
-
-      <!-- Month Selector -->
-      <select formControlName="month" class="border border-black p-2 rounded">
-        <option *ngFor="let month of months" [value]="month.value">
-          {{ month.name }}
-        </option>
-      </select>
+    <!-- Date Selection (Day & Month) -->
+    <div>
+      <label class="text-sm font-medium">Transaction Date</label>
+      <div class=" flex gap-2">
+        <select formControlName="day" class="w-1/2 p-2 border rounded">
+          <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+        </select>
+        <select formControlName="month" class="w-1/2 p-2 border rounded">
+          <option *ngFor="let month of months" [value]="month.value">
+            {{ month.name }}
+          </option>
+        </select>
+      </div>
     </div>
 
-    <div class="select-wrapper">
-      <label for="underline_select" class="sr-only">Underline select</label>
+    <!-- Payment Method -->
+    <div class="w-1/6">
+      <label class="text-sm font-medium">Payment</label>
       <select
-        id="underline_select"
         formControlName="payment_method"
-        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+        class="w-full p-2 border rounded"
       >
-        <option value="" selected disable>Select Method</option>
+        <option value="" disabled selected>Choose</option>
         <option
           *ngFor="let method of EPaymentMethod | keyvalue"
           [value]="method.value"
@@ -87,80 +78,81 @@
       </select>
     </div>
 
-    <div class="input-wrapper">
-      <div class="relative z-0">
-        <input
-          type="text"
-          id="description"
-          formControlName="description"
-          class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          placeholder="Description"
-        />
-      </div>
+    <!-- Description -->
+    <div class="w-1/6">
+      <label class="text-sm font-medium">Desc</label>
+      <input
+        type="text"
+        formControlName="description"
+        class="w-full p-2 border rounded"
+        placeholder="Notes"
+      />
     </div>
 
-    <div class="select-wrapper">
-      <label for="bank_account_id" class="sr-only">Underline select</label>
+    <!-- Bank Account -->
+    <div class="w-1/6">
+      <label class="text-sm font-medium">Bank</label>
       <select
-        id="bank_account_id"
         formControlName="bank_account_id"
-        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+        class="w-full p-2 border rounded"
       >
-        <option value="" selected disable>Select Account</option>
+        <option value="" disabled selected>Choose</option>
         <option *ngFor="let account of bankAccounts" [value]="account.id">
           {{ account.account_nickname }} - {{ account.masked_account_number }}
         </option>
       </select>
     </div>
-    <button
-      type="button"
-      class="submit-button"
-      [ngClass]="{ disable: !transactionForm.valid }"
-      [disabled]="!transactionForm.valid"
-      (click)="addTransaction()"
-    >
-      Add Transaction
-    </button>
-  </div>
-</form>
 
-<div class="overflow-x-auto p-4">
-  <table class="w-full border border-black">
-    <thead>
-      <tr class="bg-black text-white text-left">
-        <th class="border border-black p-2">Source</th>
-        <th class="border border-black p-2">Resource</th>
-        <th class="border border-black p-2">Date</th>
-        <th class="border border-black p-2">Amount</th>
-        <th class="border border-black p-2">Bank Name</th>
-        <th class="border border-black p-2">Vineet</th>
-        <th class="border border-black p-2">OTHER</th>
-        <th class="border border-black p-2">Personal</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let transaction of transactions" class="border border-black">
-        <td class="border border-black p-2 font-semibold">
-          {{ transaction.category_id }}
-        </td>
-        <td class="border border-black p-2">{{ transaction.description }}</td>
-        <td class="border border-black p-2">
-          {{ transaction.transaction_date | date : "d-MMM-yyyy" }}
-        </td>
-        <td class="border border-black p-2">
-          ₹{{ transaction.amount | number : "1.2-2" }}
-        </td>
-        <td class="border border-black p-2">
-          {{ transaction.bank_account_id }}
-        </td>
-        <td class="border border-black p-2">₹{{ transaction.amount }}</td>
-        <td class="border border-black p-2">
-          ₹{{ transaction.transaction_type }}
-        </td>
-        <td class="border border-black p-2">
-          <!-- ₹{{ transaction.personal | number : "1.2-2" }} -->
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="bg-blue-600 text-white px-4 py-2 rounded mt-4 disabled:opacity-50"
+      [disabled]="!transactionForm.valid"
+    >
+      Add
+    </button>
+  </form>
+
+  <!-- Transaction Table -->
+  <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
+    📋 Transactions
+  </h2>
+
+  <div class="overflow-x-auto">
+    <table class="w-full border border-gray-300 shadow-md rounded-lg">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="border p-3 text-left">Category</th>
+          <th class="border p-3 text-left">Description</th>
+          <th class="border p-3 text-left">Date</th>
+          <th class="border p-3 text-left">Amount</th>
+          <th class="border p-3 text-left">Bank Name</th>
+          <th class="border p-3 text-left">Type</th>
+          <th class="border p-3 text-left">Payment Method</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let transaction of transactions"
+          class="border border-gray-300 hover:bg-gray-100 transition"
+        >
+          <td class="border p-3 font-semibold">
+            {{ transaction.category_id }}
+          </td>
+          <td class="border p-3">{{ transaction.description }}</td>
+          <td class="border p-3">
+            {{ transaction.transaction_date | date : "d-MMM-yyyy" }}
+          </td>
+          <td class="border p-3 font-semibold text-green-600">
+            ₹{{ transaction.amount | number : "1.2-2" }}
+          </td>
+          <td class="border p-3">{{ transaction.bank_account_id }}</td>
+          <td class="border p-3 text-blue-600">
+            {{ transaction.transaction_type }}
+          </td>
+          <td class="border p-3">{{ transaction.payment_method  | removeUnderScoreAndTitleCase}} </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
