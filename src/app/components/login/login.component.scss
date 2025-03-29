@@ -1,5 +1,5 @@
 .container {
-  @apply flex flex-col justify-center font-[sans-serif]  p-4;
+  @apply flex flex-col justify-center  p-4 mx-auto;
   .body {
     @apply max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8;
     .top-section {
