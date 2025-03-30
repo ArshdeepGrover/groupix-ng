@@ -1,0 +1,70 @@
+<div class="max-w-3xl mx-auto p-6">
+  <h2 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white text-center">
+    💳 My Credit Cards
+  </h2>
+
+  <app-spinner *ngIf="loading; else creditCardsDetails"></app-spinner>
+
+  <ng-template #creditCardsDetails>
+    <div
+      *ngFor="let card of creditCards"
+      class="relative bg-white/30 backdrop-blur-lg shadow-lg rounded-2xl p-6 mb-6 flex justify-between items-center border border-gray-200 dark:border-gray-700 transition transform hover:scale-[1.02]"
+    >
+      <!-- Card Details -->
+      <div>
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-white">
+          {{ card.card_nickname || card.card_holder_name }}
+        </h3>
+        <p
+          class="text-lg font-mono tracking-widest text-gray-700 dark:text-gray-300"
+        >
+          **** **** **** {{ card.card_number | slice : -4 }}
+        </p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          {{ card.bank_name }}
+        </p>
+        <span
+          *ngIf="card.is_primary"
+          class="bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-full mt-2 inline-block"
+        >
+          Primary
+        </span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col gap-3">
+        <button
+          *ngIf="!card.is_primary"
+          class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-4 py-2 rounded-xl text-sm flex items-center gap-2 shadow-md transition transform hover:scale-105"
+          (click)="setPrimary(card.uuid!)"
+        >
+          <fa-icon [icon]="icons.faStar"></fa-icon> Set Primary
+        </button>
+
+        <button
+          class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm flex items-center gap-2 shadow-md transition transform hover:scale-105"
+          (click)="updateCreditCard(card)"
+        >
+          <fa-icon [icon]="icons.faEdit"></fa-icon> Edit
+        </button>
+
+        <button
+          class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-xl text-sm flex items-center gap-2 shadow-md transition transform hover:scale-105"
+          (click)="deleteCreditCard(card.uuid!)"
+        >
+          <fa-icon [icon]="icons.faTrash"></fa-icon> Delete
+        </button>
+      </div>
+    </div>
+
+    <!-- Attach New Credit Card -->
+    <div class="text-center mt-6">
+      <button
+        class="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-indigo-600 hover:to-blue-500 text-white font-medium px-6 py-3 rounded-xl text-lg shadow-lg transition transform hover:scale-105"
+        [routerLink]="['new']"
+      >
+        + Attach New Credit Card
+      </button>
+    </div>
+  </ng-template>
+</div>

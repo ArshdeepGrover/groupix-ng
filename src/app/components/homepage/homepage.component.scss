@@ -1,4 +1,5 @@
 section {
+  @apply md:max-w-screen-xl mx-auto;
   .first-section {
     @apply h-[90dvh] flex items-center flex-col md:flex-row px-3;
     .text-area {

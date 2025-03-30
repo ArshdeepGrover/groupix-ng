@@ -1,0 +1,104 @@
+<form action="" class="bank-account-create-form" [formGroup]="bankAccountForm">
+  <div>
+    <label for="account_holder_name"
+      >Account Holder Name
+      <span class="required"> *</span>
+    </label>
+    <input
+      type="text"
+      id="account_holder_name"
+      placeholder="Account Holder Name"
+      required
+      formControlName="account_holder_name"
+    />
+  </div>
+  <div>
+    <label for="account_nickname"
+      >Account Nick Name <span class="required"> *</span></label
+    >
+    <input
+      type="text"
+      id="account_nickname"
+      placeholder="Account Nick Name"
+      required
+      formControlName="account_nickname"
+    />
+  </div>
+  <div>
+    <label for="account_number"
+      >Account's number <span class="required"> *</span></label
+    >
+    <input
+      type="number"
+      id="account_number"
+      placeholder="Account's number"
+      required
+      formControlName="account_number"
+    />
+  </div>
+  <div>
+    <label for="account_type"
+      >Account Type <span class="required"> *</span></label
+    >
+    <select id="account_type" formControlName="account_type">
+      <option
+        *ngFor="let accountType of EBankAccountType | keyvalue"
+        [value]="accountType.value"
+      >
+        {{ accountType.value | titlecase }}
+      </option>
+    </select>
+  </div>
+  <div>
+    <label for="bank_name">Bank's name <span class="required"> *</span></label>
+    <ng-select class="select" formControlName="bank_name">
+      <ng-option
+        *ngFor="let bankName of bankNames | keyvalue"
+        [value]="bankName.value"
+        >{{ bankName.key }}</ng-option
+      >
+    </ng-select>
+  </div>
+  <div>
+    <label for="ifsc_code">IFSC Code <span class="required"> *</span></label>
+    <input
+      type="text"
+      id="ifsc_code"
+      placeholder="IFSC Code"
+      required
+      formControlName="ifsc_code"
+    />
+  </div>
+
+  <div>
+    <label for="note">Note (It will be private to you only for some extra information stored for bank account)<span class="required"> *</span></label>
+    <input
+      type="string"
+      id="note"
+      placeholder="Note"
+      required
+      formControlName="note"
+    />
+  </div>
+
+  <div>
+    <label for="balance"
+      >Current Account Balance<span class="required"> *</span></label
+    >
+    <input
+      type="number"
+      id="balance"
+      placeholder="Account Balance"
+      required
+      formControlName="balance"
+      min="0"
+    />
+  </div>
+
+  <button
+    type="submit"
+    (click)="uuid ? updateBankDetails() : createBankAccount()"
+  >
+    {{ uuid ? "Update" : "Add" }}
+  </button>
+</form>

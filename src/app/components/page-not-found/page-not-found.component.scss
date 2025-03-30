@@ -1,5 +1,5 @@
 .container {
-  @apply h-[90dvh] flex flex-col justify-center items-center gap-10;
+  @apply h-[90dvh] flex flex-col justify-center items-center gap-10 mx-auto;
   div {
     @apply text-center;
     h1 {

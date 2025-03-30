@@ -1,0 +1,158 @@
+<div class="max-w-5xl mx-auto p-6">
+  <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+    💰 Add Transaction
+  </h2>
+
+  <form
+    [formGroup]="transactionForm"
+    (ngSubmit)="addTransaction()"
+    class="flex flex-wrap items-center gap-3 p-4 border rounded shadow-md bg-white"
+  >
+    <!-- Category -->
+    <div class="w-1/6">
+      <label class="text-sm font-medium">Category</label>
+      <select formControlName="category_id" class="w-full p-2 border rounded">
+        <option value="" disabled selected>Choose</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Amount -->
+    <div class="w-1/6">
+      <label class="text-sm font-medium">Amount</label>
+      <input
+        type="number"
+        formControlName="amount"
+        class="w-full p-2 border rounded"
+        placeholder="₹"
+      />
+    </div>
+
+    <!-- Transaction Type -->
+    <div class="w-1/6">
+      <label class="text-sm font-medium">Type</label>
+      <select
+        formControlName="transaction_type"
+        class="w-full p-2 border rounded"
+      >
+        <option
+          *ngFor="let type of ETransactionType | keyvalue"
+          [value]="type.value"
+        >
+          {{ type.value | titlecase }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Date Selection (Day & Month) -->
+    <div>
+      <label class="text-sm font-medium">Transaction Date</label>
+      <div class=" flex gap-2">
+        <select formControlName="day" class="w-1/2 p-2 border rounded">
+          <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+        </select>
+        <select formControlName="month" class="w-1/2 p-2 border rounded">
+          <option *ngFor="let month of months" [value]="month.value">
+            {{ month.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Payment Method -->
+    <div class="w-1/6">
+      <label class="text-sm font-medium">Payment</label>
+      <select
+        formControlName="payment_method"
+        class="w-full p-2 border rounded"
+      >
+        <option value="" disabled selected>Choose</option>
+        <option
+          *ngFor="let method of EPaymentMethod | keyvalue"
+          [value]="method.value"
+        >
+          {{ method.value | removeUnderScoreAndTitleCase }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Description -->
+    <div class="w-1/6">
+      <label class="text-sm font-medium">Desc</label>
+      <input
+        type="text"
+        formControlName="description"
+        class="w-full p-2 border rounded"
+        placeholder="Notes"
+      />
+    </div>
+
+    <!-- Bank Account -->
+    <div class="w-1/6">
+      <label class="text-sm font-medium">Bank</label>
+      <select
+        formControlName="bank_account_id"
+        class="w-full p-2 border rounded"
+      >
+        <option value="" disabled selected>Choose</option>
+        <option *ngFor="let account of bankAccounts" [value]="account.id">
+          {{ account.account_nickname }} - {{ account.masked_account_number }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="bg-blue-600 text-white px-4 py-2 rounded mt-4 disabled:opacity-50"
+      [disabled]="!transactionForm.valid"
+    >
+      Add
+    </button>
+  </form>
+
+  <!-- Transaction Table -->
+  <h2 class="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
+    📋 Transactions
+  </h2>
+
+  <div class="overflow-x-auto">
+    <table class="w-full border border-gray-300 shadow-md rounded-lg">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="border p-3 text-left">Category</th>
+          <th class="border p-3 text-left">Description</th>
+          <th class="border p-3 text-left">Date</th>
+          <th class="border p-3 text-left">Amount</th>
+          <th class="border p-3 text-left">Bank Name</th>
+          <th class="border p-3 text-left">Type</th>
+          <th class="border p-3 text-left">Payment Method</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let transaction of transactions"
+          class="border border-gray-300 hover:bg-gray-100 transition"
+        >
+          <td class="border p-3 font-semibold">
+            {{ transaction.category_id }}
+          </td>
+          <td class="border p-3">{{ transaction.description }}</td>
+          <td class="border p-3">
+            {{ transaction.transaction_date | date : "d-MMM-yyyy" }}
+          </td>
+          <td class="border p-3 font-semibold text-green-600">
+            ₹{{ transaction.amount | number : "1.2-2" }}
+          </td>
+          <td class="border p-3">{{ transaction.bank_account_id }}</td>
+          <td class="border p-3 text-blue-600">
+            {{ transaction.transaction_type }}
+          </td>
+          <td class="border p-3">{{ transaction.payment_method  | removeUnderScoreAndTitleCase}} </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

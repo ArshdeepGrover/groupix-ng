@@ -1,0 +1,11 @@
+.sidebar-container {
+  @apply w-64 fixed top-[4.5rem] left-0 h-full bg-gray-50 dark:bg-gray-800 p-4 transition-transform duration-300 shadow-2xl;
+  .header {
+    @apply flex justify-between sticky top-0 w-full items-center;
+    .heading {
+    }
+    .close-button {
+      @apply text-white bg-red-500 hover:bg-red-600 px-2 py-1 rounded;
+    }
+  }
+}

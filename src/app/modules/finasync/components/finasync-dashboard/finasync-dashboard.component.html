@@ -1,0 +1,61 @@
+<app-sidebar>
+  <h2 sidebar-header class="text-lg font-bold">Finasync</h2>
+  <div class="aside-container" content>
+    <ul>
+      <!-- <li>
+        <a
+          routerLink="."
+          routerLinkActive="active-route"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <div class="icon" [innerHTML]="plusIcon"></div>
+          <span>Dashboard</span>
+        </a>
+      </li> -->
+      <li>
+        <a  routerLink="."
+          routerLinkActive="active-route"
+          [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active-route">
+          <div class="icon" [innerHTML]="plusIcon"></div>
+          <span>Transactions</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="bank-accounts" routerLinkActive="active-route">
+          <div class="icon" [innerHTML]="plusIcon"></div>
+          <span>Bank Accounts</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="credit-cards" routerLinkActive="active-route">
+          <div class="icon" [innerHTML]="plusIcon"></div>
+          <span>Credit Cards</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="graphs" routerLinkActive="active-route">
+          <fa-icon [icon]="icons.faChartArea"></fa-icon>
+          <span>Graphs</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="categories" routerLinkActive="active-route">
+          <div class="icon" [innerHTML]="plusIcon"></div>
+          <span>Categories</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</app-sidebar>
+<button
+  class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition"
+  (click)="toggleSidebar()"
+>
+  ☰ Toggle Sidebar
+</button>
+
+<div class="right-column">
+  <div class="right-column-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

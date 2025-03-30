@@ -31,6 +31,7 @@ import { GroupDashboardComponent } from 'src/app/components/group/group-dashboar
 import { EditGroupComponent } from 'src/app/components/group/edit-group/edit-group.component';
 import { BillsComponent } from 'src/app/components/group/bills/bills.component';
 import { GroupMembersComponent } from 'src/app/components/group/group-members/group-members.component';
+import { SpinnerComponent } from 'src/app/standalone-components/spinner/spinner.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +61,8 @@ import { GroupMembersComponent } from 'src/app/components/group/group-members/gr
     MatDialogModule,
     SharedComponentsModule,
     GoogleSigninButtonModule,
+
+    SpinnerComponent,
   ],
   providers: [
     {

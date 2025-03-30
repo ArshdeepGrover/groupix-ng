@@ -5,28 +5,71 @@ export const ROUTES = {
     CHECK_USERNAME: 'users/check_username',
     RESET_TOKEN: 'users/reset_token',
     SHOW_FROM_TOKEN: 'users/show_from_token',
-    SIGNUP: 'users/signup', //post
+    SIGNUP: 'users/signup',
     GOOGLE_AUTH: 'users/login_with_google_auth',
   },
 
   GROUPS: {
-    INDEX: 'groups', // get
-    SHOW: 'groups/show', // get
-    CREATE: 'groups', // post
-    DESTROY: 'groups', // delete
-    UPDATE: 'groups', // put
-    CREATE_MEMBER_ADMIN: 'groups/create_member_admin', //post
+    INDEX: 'groups',
+    SHOW: 'groups/show',
+    CREATE: 'groups',
+    DESTROY: 'groups',
+    UPDATE: 'groups',
+    CREATE_MEMBER_ADMIN: 'groups/create_member_admin',
   },
 
   BILLS: {
-    INDEX: 'bills', //get
-    INDEX_GRAPH: 'bills/index_graph', //get
+    INDEX: 'bills',
+    INDEX_GRAPH: 'bills/index_graph',
     SHOW: 'bills/show',
-    CREATE: 'bills', //post
+    CREATE: 'bills',
     DESTROY: 'bills',
     UPDATE: 'bills',
-    SHARE_BILLS: 'bills/share_bills', //get
-    AMOUNT_YOU_OWE: 'bills/amount_you_owe', //get
-    AMOUNT_YOU_LENT: 'bills/amount_you_lent', //get
+    SHARE_BILLS: 'bills/share_bills',
+    AMOUNT_YOU_OWE: 'bills/amount_you_owe',
+    AMOUNT_YOU_LENT: 'bills/amount_you_lent',
+  },
+
+  BANK_ACCOUNTS: {
+    INDEX: 'bank_accounts',
+    MINI_INDEX: 'bank_accounts/mini_index',
+    SHOW: 'bank_accounts/show',
+    CREATE: 'bank_accounts',
+    DESTROY: 'bank_accounts',
+    UPDATE: 'bank_accounts',
+    SET_PRIMARY: 'bank_accounts/set_primary',
+  },
+
+  TRANSACTIONS: {
+    INDEX: 'transactions',
+    SHOW: 'transactions/show',
+    CREATE: 'transactions',
+    DESTROY: 'transactions',
+    UPDATE: 'transactions',
+  },
+
+  CREDIT_CARDS: {
+    INDEX: 'credit_cards',
+    SHOW: 'credit_cards',
+    CREATE: 'credit_cards',
+    UPDATE: 'credit_cards',
+    DESTROY: 'credit_cards',
+    SET_PRIMARY: 'credit_cards/set_primary',
+  },
+
+  CATEGORIES: {
+    INDEX: 'categories',
+    MINI_INDEX: 'categories/mini_index',
+    CREATE: 'categories',
+    UPDATE: 'categories',
+    DESTROY: 'categories',
+  },
+
+  TRANSACTION: {
+    INDEX: 'transactions',
+    SHOW: 'transactions/show',
+    CREATE: 'transactions',
+    DESTROY: 'transactions',
+    UPDATE: 'transactions',
   },
 };

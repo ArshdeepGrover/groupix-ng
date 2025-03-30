@@ -20,6 +20,13 @@ const routes: Routes = [
     component: HomepageComponent,
   },
   {
+    path: 'finasync',
+    loadChildren: () =>
+      import('./modules/finasync/finasync.module').then(
+        (m) => m.FinasyncModule
+      ),
+  },
+  {
     path: 'login',
     component: LoginComponent,
   },

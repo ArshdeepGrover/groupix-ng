@@ -72,7 +72,7 @@ export class LoginProviderService {
       this.loginService.getUserInfoFromAuthToken(userAuthToken).subscribe(
         (user) => {
           this.currentUser.next(user);
-          this.toastService.showToast(`Welcome back, ${user.name}!`);
+          // this.toastService.showToast(`Welcome back, ${user.name}!`);
         },
         (error) => {
           this.localCookieService.removeCookie();
