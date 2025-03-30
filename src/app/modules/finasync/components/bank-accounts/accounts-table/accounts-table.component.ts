@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faEdit, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { IBankAccount } from 'src/app/modules/finasync/models/bank-account.model';
 import { BankAccountsService } from 'src/app/modules/finasync/services/bank-accounts.service';
 import { ToasterService } from 'src/app/modules/toast/toaster.service';
@@ -11,6 +12,11 @@ import { ToasterService } from 'src/app/modules/toast/toaster.service';
 export class AccountsTableComponent implements OnInit {
   bankAccounts!: IBankAccount[];
   loading = true;
+  icons = {
+    faStar,
+    faEdit,
+    faTrash,
+  };
 
   constructor(
     private bankAccountService: BankAccountsService,
