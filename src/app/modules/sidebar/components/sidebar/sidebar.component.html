@@ -1,0 +1,11 @@
+<div class="sidebar-container" [class.-translate-x-full]="!(isOpen$ | async)">
+  <div class="header">
+    <!-- Custom Header (Optional) -->
+    <ng-content select="[sidebar-header]"></ng-content>
+    <!-- Close Button -->
+    <button class="close-button" (click)="closeSidebar()">✖</button>
+  </div>
+
+  <!-- Pass custom menu items from parent -->
+  <ng-content select="[content]"></ng-content>
+</div>

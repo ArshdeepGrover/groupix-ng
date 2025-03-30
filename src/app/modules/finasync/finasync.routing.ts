@@ -17,6 +17,10 @@ const routes: Routes = [
     component: FinasyncDashboardComponent,
     children: [
       {
+        path: '',
+        component: TransactionComponent,
+      },
+      {
         path: 'bank-accounts',
         component: BankAccountsComponent,
         children: [
@@ -31,10 +35,7 @@ const routes: Routes = [
           { path: 'edit/:uuid', component: FormComponent },
         ],
       },
-      {
-        path: 'transactions',
-        component: TransactionComponent,
-      },
+
       {
         path: 'credit-cards',
         component: CreditCardsComponent,
